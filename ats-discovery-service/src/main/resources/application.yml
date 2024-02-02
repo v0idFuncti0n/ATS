@@ -14,3 +14,12 @@ eureka:
     renewal-threshold-update-interval-ms: 900000
   instance:
     lease-expiration-duration-in-seconds: 90
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+server:
+  port: 8080

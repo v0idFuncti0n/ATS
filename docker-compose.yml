@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  ats-discovery-service:
+    container_name: ats-discovery-service
+
+    ports:
+      - "8080:8761"

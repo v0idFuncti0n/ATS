@@ -11,3 +11,12 @@ spring:
           uri: 'https://github.com/v0idFuncti0n/ATS'
           default-label: master
           search-paths: ats-configuration-files
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+server:
+  port: 8080
