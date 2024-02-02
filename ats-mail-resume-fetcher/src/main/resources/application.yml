@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: 'ats-mail-resume-fetcher'
+
+server:
+  port: 0
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
