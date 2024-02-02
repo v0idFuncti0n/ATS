@@ -2,7 +2,23 @@ version: '3'
 
 services:
   ats-discovery-service:
-    container_name: ats-discovery-service
+    container_name: 'discovery-service'
+    build: ./ats-discovery-service
+    networks:
+      - default
 
+  ats-configuration-service-server:
+    container_name: 'configuration-service-server'
+    build: ./ats-configuration-service-server
     ports:
-      - "8080:8761"
+      - "8888:8888"
+    expose:
+      - 8888
+    networks:
+      - default
+
+  ats-mail-resume-fetcher:
+    container_name: 'mail-resume-fetcher'
+    build: ./ats-mail-resume-fetcher
+    networks:
+      - default
