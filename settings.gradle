@@ -2,3 +2,4 @@ rootProject.name = 'ATS'
 
 include ':ats-discovery-service'
 include ':ats-configuration-service-server'
+include ':ats-mail-resume-fetcher'
