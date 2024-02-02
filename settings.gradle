@@ -1,0 +1,4 @@
+rootProject.name = 'ATS'
+
+include ':ats-discovery-service'
+
