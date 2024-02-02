@@ -8,6 +8,7 @@ spring:
     config:
       server:
         git:
-          uri: 'https://github.com/v0idFuncti0n/ats-configuration-files'
+          uri: 'https://github.com/v0idFuncti0n/ATS'
           default-label: master
           clone-on-start: true
+          search-paths: ats-configuration-files
