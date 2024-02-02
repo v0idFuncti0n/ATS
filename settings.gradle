@@ -1,5 +1,4 @@
 rootProject.name = 'ATS'
 
 include ':ats-discovery-service'
-include ':ats-configuration-server-service'
 
