@@ -77,6 +77,7 @@ public class EmailListener extends MessageCountAdapter {
                                     // resumeResponse.getBody() get the JSON data
                                     if(resumeResponse.getStatusCode() == HttpStatusCode.valueOf(200)) {
                                         resumePDF.delete();
+                                        System.out.println(resumeResponse.getBody());
                                     }
                                 }
                             }
