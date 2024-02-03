@@ -2,3 +2,12 @@ spring:
   cloud:
     config:
       uri: 'http://localhost:8888'
+
+---
+spring:
+  config:
+    activate:
+      on-profile: docker
+  cloud:
+    config:
+      uri: 'http://ats-configuration-service-server:8080'

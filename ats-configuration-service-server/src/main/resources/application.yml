@@ -17,6 +17,13 @@ spring:
   config:
     activate:
       on-profile: docker
+  cloud:
+    config:
+      server:
+        git:
+          uri: 'https://github.com/v0idFuncti0n/ATS'
+          default-label: master
+          search-paths: ats-configuration-files
 
 server:
   port: 8080

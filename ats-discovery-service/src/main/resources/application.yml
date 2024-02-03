@@ -14,6 +14,7 @@ eureka:
     renewal-threshold-update-interval-ms: 900000
   instance:
     lease-expiration-duration-in-seconds: 90
+    prefer-ip-address: true
 
 ---
 spring:
@@ -22,4 +23,19 @@ spring:
       on-profile: docker
 
 server:
-  port: 8080
+  port: 8761
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: "http://ats-discovery-service:8761/eureka/"
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    expected-client-renewal-interval-seconds: 3
+    eviction-interval-timer-in-ms: 60000
+    renewal-percent-threshold: 0.85
+    renewal-threshold-update-interval-ms: 900000
+  instance:
+    lease-expiration-duration-in-seconds: 90
+    prefer-ip-address: true

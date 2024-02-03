@@ -72,6 +72,7 @@ public class EmailListener extends MessageCountAdapter {
                                 File resumePDF = new File(downloadPDFLocation);
 
                                 ResponseEntity<String> resumeUploadedResponse = atsResumeParserService.sendResume(resumePDF);
+
                                 if (resumeUploadedResponse.getStatusCode() == HttpStatusCode.valueOf(200)){
                                     ResponseEntity<Object> resumeResponse = atsResumeParserService.resumeToJSON(resumePDF.getName());
                                     // resumeResponse.getBody() get the JSON data
