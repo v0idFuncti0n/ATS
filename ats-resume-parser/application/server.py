@@ -11,7 +11,7 @@ ALLOWED_EXTENSIONS = {'pdf'}
 
 env_variables = parse_env_file()
 
-eureka_client.init(eureka_server="http://localhost:8761/eureka",
+eureka_client.init(eureka_server="http://ats-discovery-service:8761/eureka/",
                    app_name="ats-resume-parser",
                    instance_port=int(os.getenv("RESUME_PARSER_PORT", '8050')),
                    instance_host="127.0.0.1")
@@ -57,7 +57,7 @@ def display_resume(name):
 
 if __name__ == "__main__":
     host = os.getenv("RESUME_PARSER_HOST", '0.0.0.0')
-    port = os.getenv("RESUME_PARSER_PORT", '8050')
+    port = os.getenv("RESUME_PARSER_PORT", '5000')
     assert port.isnumeric(), 'port must be an integer'
     port = int(port)
     app.run(host=host, port=port, debug=True)

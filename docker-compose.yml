@@ -27,3 +27,9 @@ services:
     depends_on:
       - ats-discovery-service
       - ats-configuration-service-server
+
+  ats-resume-parser:
+    container_name: 'ats-resume-parser'
+    build: ./ats-resume-parser
+    ports:
+      - "5000:5000"
