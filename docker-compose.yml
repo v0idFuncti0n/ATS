@@ -21,15 +21,22 @@ services:
     container_name: 'ats-mail-resume-fetcher'
     build: ./ats-mail-resume-fetcher
     ports:
-      - "8082:8080"
+      - "8080:8080"
     environment:
       - SPRING_PROFILES_ACTIVE=docker
+    links:
+      - ats-discovery-service
+      - ats-resume-parser
     depends_on:
       - ats-discovery-service
-      - ats-configuration-service-server
+    restart: on-failure
 
   ats-resume-parser:
     container_name: 'ats-resume-parser'
     build: ./ats-resume-parser
     ports:
       - "5000:5000"
+    links:
+      - ats-discovery-service
+    depends_on:
+      - ats-discovery-service

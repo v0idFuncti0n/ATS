@@ -6,7 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "ATS-RESUME-PARSER")
+@FeignClient(name = "ATS-RESUME-PARSER", url = "http://ats-resume-parser:5000/")
 public interface ATSResumeParserFeignClient {
 
     @GetMapping(path = "/resume/{name}/", produces = MediaType.APPLICATION_JSON_VALUE)

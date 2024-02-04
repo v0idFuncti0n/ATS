@@ -14,15 +14,14 @@ import java.io.File;
 @Service
 public class ATSResumeParserService {
 
-    public static final String ATS_RESUME_PARSER_URL = "http://ats-resume-parser";
+    public static final String ATS_RESUME_PARSER_URL = "http://ats-resume-parser:5000";
     public static final String ATS_RESUME_PARSER_RESUME_UPLOAD_ENDPOINT = "/resume/";
 
-    private final RestTemplate restTemplate;
+    private final RestTemplate restTemplate = new RestTemplate();
     private final ATSResumeParserFeignClient atsResumeParserFeignClient;
 
     @Autowired
-    public ATSResumeParserService(RestTemplate restTemplate, ATSResumeParserFeignClient atsResumeParserFeignClient) {
-        this.restTemplate = restTemplate;
+    public ATSResumeParserService(ATSResumeParserFeignClient atsResumeParserFeignClient) {
         this.atsResumeParserFeignClient = atsResumeParserFeignClient;
     }
 
