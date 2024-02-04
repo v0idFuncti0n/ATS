@@ -9,7 +9,7 @@ COPY . .
 
 EXPOSE 5000
 
-ENV OPENAI_API_KEY='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'
+ENV OPENAI_API_KEY='insert openai key'
 
 RUN pip3 install -r ./build/requirements.txt
 
