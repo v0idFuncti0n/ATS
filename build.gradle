@@ -24,3 +24,7 @@ tasks.register('ComposeUp', Exec) {
     dependsOn 'clean', 'build'
     commandLine 'docker-compose', 'up', '-d'
 }
+
+tasks.register('ComposeDown', Exec) {
+    commandLine 'docker-compose', 'down', '--rmi','local'
+}
