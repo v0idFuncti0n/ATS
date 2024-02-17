@@ -1,0 +1,5 @@
+py_eureka_client
+pdftotext
+openai==0.28
+flask
+tiktoken
