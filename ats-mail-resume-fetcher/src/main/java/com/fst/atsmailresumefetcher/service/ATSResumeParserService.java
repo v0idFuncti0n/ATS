@@ -2,6 +2,8 @@ package com.fst.atsmailresumefetcher.service;
 
 import com.fst.atsmailresumefetcher.feign.ATSResumeParserFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -12,16 +14,18 @@ import org.springframework.web.client.RestTemplate;
 import java.io.File;
 
 @Service
+@RefreshScope
 public class ATSResumeParserService {
 
-    public static final String ATS_RESUME_PARSER_URL = "http://ats-resume-parser:5000";
+    public final String atsResumeParserResumeURL;
     public static final String ATS_RESUME_PARSER_RESUME_UPLOAD_ENDPOINT = "/resume/";
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final ATSResumeParserFeignClient atsResumeParserFeignClient;
 
     @Autowired
-    public ATSResumeParserService(ATSResumeParserFeignClient atsResumeParserFeignClient) {
+    public ATSResumeParserService(@Value("${ats.resume-parser-url}") String atsResumeParserResumeURL, ATSResumeParserFeignClient atsResumeParserFeignClient) {
+        this.atsResumeParserResumeURL = atsResumeParserResumeURL;
         this.atsResumeParserFeignClient = atsResumeParserFeignClient;
     }
 
@@ -35,7 +39,8 @@ public class ATSResumeParserService {
         body.set("file", fileSystemResource);
 
         HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-        return restTemplate.exchange(ATS_RESUME_PARSER_URL + ATS_RESUME_PARSER_RESUME_UPLOAD_ENDPOINT, HttpMethod.POST, requestEntity, String.class);
+
+        return restTemplate.exchange(atsResumeParserResumeURL + ATS_RESUME_PARSER_RESUME_UPLOAD_ENDPOINT, HttpMethod.POST, requestEntity, String.class);
     }
 
     public ResponseEntity<Object> resumeToJSON(String name) {

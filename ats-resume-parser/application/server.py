@@ -11,7 +11,7 @@ ALLOWED_EXTENSIONS = {'pdf'}
 
 env_variables = parse_env_file()
 
-eureka_client.init(eureka_server="http://ats-discovery-service:8761/eureka/",
+eureka_client.init(eureka_server=os.getenv("ATS_DISCOVERY_SERVICE_URL"),
                    app_name="ats-resume-parser",
                    instance_port=int(os.getenv("RESUME_PARSER_PORT", '8050')),
                    instance_host="127.0.0.1")

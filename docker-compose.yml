@@ -40,3 +40,5 @@ services:
       - ats-discovery-service
     depends_on:
       - ats-discovery-service
+    environment:
+      - ATS_DISCOVERY_SERVICE_URL=http://ats-discovery-service:8761/eureka/
