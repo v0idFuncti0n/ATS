@@ -20,3 +20,7 @@ test {
 }
 
 
+tasks.register('ComposeUp', Exec) {
+    dependsOn 'clean', 'build'
+    commandLine 'docker-compose', 'up', '-d'
+}
