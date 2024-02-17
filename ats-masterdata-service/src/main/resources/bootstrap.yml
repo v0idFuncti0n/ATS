@@ -3,10 +3,6 @@ spring:
     config:
       uri: 'http://localhost:8888'
 
-ats:
-  resume-parser-url: http://localhost:5000
-  masterdata-url: http://localhost:8081
-
 ---
 spring:
   config:
@@ -15,7 +11,3 @@ spring:
   cloud:
     config:
       uri: 'http://ats-configuration-service-server:8080'
-
-ats:
-  resume-parser-url: http://ats-resume-parser:5000
-  masterdata-url: http://ats-masterdata-service:8080

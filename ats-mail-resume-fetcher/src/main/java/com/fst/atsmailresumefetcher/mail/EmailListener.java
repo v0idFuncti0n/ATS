@@ -1,5 +1,6 @@
 package com.fst.atsmailresumefetcher.mail;
 
+import com.fst.atsmailresumefetcher.service.ATSMasterdataService;
 import com.fst.atsmailresumefetcher.service.ATSResumeParserService;
 import jakarta.mail.*;
 import jakarta.mail.event.MessageCountAdapter;
@@ -31,6 +32,9 @@ public class EmailListener extends MessageCountAdapter {
 
     @Autowired
     private ATSResumeParserService atsResumeParserService;
+
+    @Autowired
+    private ATSMasterdataService atsMasterdataService;
 
     public EmailListener(Session session) {
         this.session = session;
@@ -79,6 +83,7 @@ public class EmailListener extends MessageCountAdapter {
                                     if(resumeResponse.getStatusCode() == HttpStatusCode.valueOf(200)) {
                                         resumePDF.delete();
                                         System.out.println(resumeResponse.getBody());
+                                        atsMasterdataService.createCandidate(resumeResponse.getBody());
                                     }
                                 }
                             }
