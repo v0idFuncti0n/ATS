@@ -5,6 +5,10 @@ spring:
     url: jdbc:mysql://localhost:3306/ats
     username: root
     password:
+  jpa:
+    hibernate:
+      ddl-auto: create
+
 
 server:
   port: 8081
@@ -22,9 +26,12 @@ spring:
     activate:
       on-profile: docker
   datasource:
-    url: jdbc:mysql://localhost:3306/ats
+    url: jdbc:mysql://mysql:3306/ats
     username: root
     password:
+  jpa:
+    hibernate:
+      ddl-auto: create
 
 server:
   port: 8081

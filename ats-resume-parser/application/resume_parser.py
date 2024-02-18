@@ -12,11 +12,11 @@ class ResumeParser():
         openai.api_key = OPENAI_API_KEY
         # GPT-3 completion questions
         self.prompt_questions = \
-            """Summarize the text below into a JSON with exactly the following structure {first_name, last_name, email, phone_number, location, birth_date,
-             work_experience: [{job_title, company, location, duration, job_summary}], educations:[{education}],
-             project_experience:[{project_name, project_description}],
+            """Summarize the text below into a JSON with exactly the following structure {firstName, lastName, email, phoneNumber, location, birthDate,
+             workExperiences: [{jobTitle, company, location, duration, jobSummary}],
+             educations:[{education, institute, location, duration}],
              skills:[{skill}],
-             languages:[{language}]} """
+             languages:[{language, level}]}"""
         # set up this parser's logger
         logging.basicConfig(filename='../parser.log', level=logging.DEBUG)
         self.logger = logging.getLogger()
