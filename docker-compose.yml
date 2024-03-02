@@ -43,6 +43,14 @@ services:
     environment:
       - ATS_DISCOVERY_SERVICE_URL=http://ats-discovery-service:8761/eureka/
 
+  ats-gateway-service:
+    container_name: 'ats-gateway-service'
+    build: ./ats-gateway-service
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+
   ats-masterdata-service:
     container_name: 'ats-masterdata-service'
     build: ./ats-masterdata-service

@@ -1,0 +1,97 @@
+app:
+  eureka-server: localhost
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: INFO
+    org.springframework.cloud.gateway: TRACE
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: 'ats-gateway-service'
+  cloud:
+    gateway:
+      routes:
+        - id: ats-masterdata-service
+          uri: lb://ats-masterdata-service
+          predicates:
+            - Path=/**
+        - id: eureka-api
+          uri: http://${app.eureka-server}:8761
+          predicates:
+            - Path=/eureka/api/{segment}
+          filters:
+            - SetPath=/eureka/{segment}
+        - id: eureka-web-start
+          uri: http://${app.eureka-server}:8761
+          predicates:
+            - Path=/eureka/web
+          filters:
+            - SetPath=/
+        - id: eureka-web-other
+          uri: http://${app.eureka-server}:8761
+          predicates:
+            - Path=/eureka/**
+
+server:
+  port: 8082
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+---
+app:
+  eureka-server: ats-discovery-service
+
+logging:
+  level:
+    root: INFO
+    org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: INFO
+    org.springframework.cloud.gateway: TRACE
+
+spring:
+  config:
+    activate:
+      on-profile: docker
+  main:
+    web-application-type: reactive
+  cloud:
+    gateway:
+      routes:
+        - id: api
+          uri: lb://ats-masterdata-service
+          predicates:
+            - Path=/**
+        - id: eureka-api
+          uri: http://${app.eureka-server}:8761
+          predicates:
+            - Path=/eureka/api/{segment}
+          filters:
+            - SetPath=/eureka/{segment}
+        - id: eureka-web-start
+          uri: http://${app.eureka-server}:8761
+          predicates:
+            - Path=/eureka/web
+          filters:
+            - SetPath=/
+        - id: eureka-web-other
+          uri: http://${app.eureka-server}:8761
+          predicates:
+            - Path=/eureka/**
+
+server:
+  port: 8082
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.uuid}
+  client:
+    service-url:
+      defaultZone: http://ats-discovery-service:8761/eureka
