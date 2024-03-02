@@ -9,8 +9,6 @@ COPY . .
 
 EXPOSE 5000
 
-ENV OPENAI_API_KEY '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'
-
 RUN pip3 install -r ./build/requirements.txt
 
 CMD ["sh", "run.sh"]
