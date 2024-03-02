@@ -18,4 +18,4 @@ spring:
 
 ats:
   resume-parser-url: http://ats-resume-parser:5000
-  masterdata-url: http://ats-masterdata-service:8080
+  masterdata-url: http://ats-masterdata-service:8081
