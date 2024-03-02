@@ -1,6 +1,6 @@
 package com.fst.atsmasterdataservice.controller;
 
-import com.fst.atsmasterdataservice.CandidateService;
+import com.fst.atsmasterdataservice.service.CandidateService;
 import com.fst.atsmasterdataservice.dto.CandidateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
