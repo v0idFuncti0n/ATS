@@ -1,4 +1,4 @@
-package com.fst.atsmasterdataservice;
+package com.fst.atsmasterdataservice.service;
 
 import com.fst.atsmasterdataservice.dto.CandidateDTO;
 import com.fst.atsmasterdataservice.entity.CandidateEntity;

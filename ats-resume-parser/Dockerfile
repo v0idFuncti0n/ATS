@@ -9,7 +9,7 @@ COPY . .
 
 EXPOSE 5000
 
-ENV OPENAI_API_KEY='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'
+ENV OPENAI_API_KEY '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'
 
 RUN pip3 install -r ./build/requirements.txt
 
