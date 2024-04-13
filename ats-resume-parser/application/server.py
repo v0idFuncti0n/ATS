@@ -1,6 +1,6 @@
 import os
 import secrets
-from flask import Flask, flash, request, redirect, make_response
+from flask import Flask, flash, request, redirect, make_response, send_file
 from py_eureka_client import eureka_client
 from werkzeug.utils import secure_filename
 from env_parser import parse_env_file
@@ -54,6 +54,10 @@ def display_resume(name):
     resume_path = os.path.join(app.config["UPLOAD_FOLDER"], name)
     return parser.query_resume(resume_path)
 
+@app.route('/resume/get/<name>/')
+def get_resume(name):
+    resume_path = os.path.join(app.config["UPLOAD_FOLDER"], name)
+    return send_file(resume_path)
 
 if __name__ == "__main__":
     host = os.getenv("RESUME_PARSER_HOST", '0.0.0.0')

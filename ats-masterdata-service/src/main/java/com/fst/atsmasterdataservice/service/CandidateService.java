@@ -2,9 +2,12 @@ package com.fst.atsmasterdataservice.service;
 
 import com.fst.atsmasterdataservice.dto.CandidateDTO;
 import com.fst.atsmasterdataservice.entity.CandidateEntity;
+import com.fst.atsmasterdataservice.feign.ATSResumeParserFeignClient;
 import com.fst.atsmasterdataservice.mapper.CandidateMapper;
 import com.fst.atsmasterdataservice.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,15 +19,17 @@ public class CandidateService {
     private final SkillRepository skillRepository;
     private final LanguageRepository languageRepository;
     private final CandidateMapper candidateMapper;
+    private final ATSResumeParserFeignClient atsResumeParserFeignClient;
 
     @Autowired
-    public CandidateService(CandidateRepository candidateRepository, WorkExperienceRepository workExperienceRepository, EducationRepository educationRepository, SkillRepository skillRepository, LanguageRepository languageRepository, CandidateMapper candidateMapper) {
+    public CandidateService(CandidateRepository candidateRepository, WorkExperienceRepository workExperienceRepository, EducationRepository educationRepository, SkillRepository skillRepository, LanguageRepository languageRepository, CandidateMapper candidateMapper, ATSResumeParserFeignClient atsResumeParserFeignClient) {
         this.candidateRepository = candidateRepository;
         this.workExperienceRepository = workExperienceRepository;
         this.educationRepository = educationRepository;
         this.skillRepository = skillRepository;
         this.languageRepository = languageRepository;
         this.candidateMapper = candidateMapper;
+        this.atsResumeParserFeignClient = atsResumeParserFeignClient;
     }
 
     public CandidateDTO createCandidate(CandidateDTO candidateDTO, String resumeFilename) {
@@ -54,5 +59,10 @@ public class CandidateService {
         });
 
         return candidateMapper.entityToDTO(savedCandidateEntity);
+    }
+
+    public Resource getCandidateResumeFile(Long id) {
+        CandidateDTO candidate = candidateMapper.entityToDTO(candidateRepository.findById(id).get());
+        return atsResumeParserFeignClient.getResumeFile(candidate.getResumeFilename()).getBody();
     }
 }
