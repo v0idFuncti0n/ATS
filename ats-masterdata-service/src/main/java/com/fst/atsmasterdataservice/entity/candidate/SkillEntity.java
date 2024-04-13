@@ -1,11 +1,11 @@
-package com.fst.atsmasterdataservice.entity;
+package com.fst.atsmasterdataservice.entity.candidate;
 
 import jakarta.persistence.*;
 
-
 @Entity
-@Table(name = "languages")
-public class LanguageEntity {
+@Table(name = "skills")
+
+public class SkillEntity {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -14,8 +14,7 @@ public class LanguageEntity {
     @Version
     private int version;
 
-    private String language;
-    private String level;
+    private String skill;
 
     @ManyToOne
     @JoinColumn(name = "candidate_id")
@@ -37,20 +36,12 @@ public class LanguageEntity {
         this.version = version;
     }
 
-    public String getLanguage() {
-        return language;
+    public String getSkill() {
+        return skill;
     }
 
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
+    public void setSkill(String skill) {
+        this.skill = skill;
     }
 
     public CandidateEntity getCandidate() {

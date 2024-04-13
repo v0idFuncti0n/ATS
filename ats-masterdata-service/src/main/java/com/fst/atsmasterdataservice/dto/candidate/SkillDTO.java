@@ -1,4 +1,4 @@
-package com.fst.atsmasterdataservice.dto;
+package com.fst.atsmasterdataservice.dto.candidate;
 
 public class SkillDTO {
     private String skill;

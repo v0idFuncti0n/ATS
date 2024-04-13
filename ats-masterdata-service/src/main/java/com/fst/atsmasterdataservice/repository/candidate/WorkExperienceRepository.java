@@ -1,6 +1,6 @@
-package com.fst.atsmasterdataservice.repository;
+package com.fst.atsmasterdataservice.repository.candidate;
 
-import com.fst.atsmasterdataservice.entity.WorkExperienceEntity;
+import com.fst.atsmasterdataservice.entity.candidate.WorkExperienceEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

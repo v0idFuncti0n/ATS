@@ -1,17 +1,14 @@
 package com.fst.atsmasterdataservice.controller;
 
 import com.fst.atsmasterdataservice.service.CandidateService;
-import com.fst.atsmasterdataservice.dto.CandidateDTO;
+import com.fst.atsmasterdataservice.dto.candidate.CandidateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.nio.file.Files;
 
 @RestController
 public class CandidateController {

@@ -1,7 +1,7 @@
 package com.fst.atsmasterdataservice.mapper;
 
-import com.fst.atsmasterdataservice.dto.CandidateDTO;
-import com.fst.atsmasterdataservice.entity.CandidateEntity;
+import com.fst.atsmasterdataservice.dto.candidate.CandidateDTO;
+import com.fst.atsmasterdataservice.entity.candidate.CandidateEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

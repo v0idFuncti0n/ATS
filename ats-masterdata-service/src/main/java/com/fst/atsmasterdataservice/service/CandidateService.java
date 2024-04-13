@@ -1,12 +1,11 @@
 package com.fst.atsmasterdataservice.service;
 
-import com.fst.atsmasterdataservice.dto.CandidateDTO;
-import com.fst.atsmasterdataservice.entity.CandidateEntity;
+import com.fst.atsmasterdataservice.dto.candidate.CandidateDTO;
+import com.fst.atsmasterdataservice.entity.candidate.CandidateEntity;
 import com.fst.atsmasterdataservice.feign.ATSResumeParserFeignClient;
 import com.fst.atsmasterdataservice.mapper.CandidateMapper;
-import com.fst.atsmasterdataservice.repository.*;
+import com.fst.atsmasterdataservice.repository.candidate.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 

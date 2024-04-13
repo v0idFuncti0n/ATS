@@ -1,7 +1,6 @@
-package com.fst.atsmasterdataservice.repository;
+package com.fst.atsmasterdataservice.repository.candidate;
 
-import com.fst.atsmasterdataservice.entity.EducationEntity;
-import com.fst.atsmasterdataservice.entity.SkillEntity;
+import com.fst.atsmasterdataservice.entity.candidate.SkillEntity;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

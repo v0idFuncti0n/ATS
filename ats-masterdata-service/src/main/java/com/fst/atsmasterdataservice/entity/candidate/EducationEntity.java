@@ -1,4 +1,4 @@
-package com.fst.atsmasterdataservice.entity;
+package com.fst.atsmasterdataservice.entity.candidate;
 
 import jakarta.persistence.*;
 
