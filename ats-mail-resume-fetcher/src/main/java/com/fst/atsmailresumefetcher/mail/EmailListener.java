@@ -81,9 +81,9 @@ public class EmailListener extends MessageCountAdapter {
                                     ResponseEntity<Object> resumeResponse = atsResumeParserService.resumeToJSON(resumePDF.getName());
                                     // resumeResponse.getBody() get the JSON data
                                     if(resumeResponse.getStatusCode() == HttpStatusCode.valueOf(200)) {
-                                        resumePDF.delete();
                                         System.out.println(resumeResponse.getBody());
-                                        atsMasterdataService.createCandidate(resumeResponse.getBody());
+                                        atsMasterdataService.createCandidate(resumeResponse.getBody(), resumePDF.getName());
+                                        resumePDF.delete();
                                     }
                                 }
                             }

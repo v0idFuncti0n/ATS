@@ -15,7 +15,7 @@ public class ATSMasterdataService {
         this.atsMasterdataServiceFeignClient = atsMasterdataServiceFeignClient;
     }
 
-    public ResponseEntity<Object> createCandidate(Object json) {
-        return atsMasterdataServiceFeignClient.createCandidate(json);
+    public ResponseEntity<Object> createCandidate(Object json, String resumeFilename) {
+        return atsMasterdataServiceFeignClient.createCandidate(json, resumeFilename);
     }
 }

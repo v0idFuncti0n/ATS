@@ -27,7 +27,9 @@ public class CandidateService {
         this.candidateMapper = candidateMapper;
     }
 
-    public CandidateDTO createCandidate(CandidateDTO candidateDTO) {
+    public CandidateDTO createCandidate(CandidateDTO candidateDTO, String resumeFilename) {
+        candidateDTO.setResumeFilename(resumeFilename);
+
         CandidateEntity candidateEntity = candidateMapper.dtoToEntity(candidateDTO);
         CandidateEntity savedCandidateEntity = candidateRepository.save(candidateEntity);
 

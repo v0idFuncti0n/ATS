@@ -1,6 +1,5 @@
 package com.fst.atsmasterdataservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -22,6 +21,8 @@ public class CandidateEntity {
     private String phoneNumber;
     private String location;
     private String birthDate;
+
+    private String resumeFilename;
 
     @OneToMany(mappedBy="candidate")
     private List<WorkExperienceEntity> workExperiences;
@@ -93,6 +94,14 @@ public class CandidateEntity {
 
     public String getBirthDate() {
         return birthDate;
+    }
+
+    public String getResumeFilename() {
+        return resumeFilename;
+    }
+
+    public void setResumeFilename(String resumeFilename) {
+        this.resumeFilename = resumeFilename;
     }
 
     public void setBirthDate(String birthDate) {

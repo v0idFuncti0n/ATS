@@ -11,6 +11,8 @@ public class CandidateDTO {
     private String location;
     private String birthDate;
 
+    private String resumeFilename;
+
     private List<WorkExperienceDTO> workExperiences;
     private List<EducationDTO> educations;
     private List<SkillDTO> skills;
@@ -62,6 +64,14 @@ public class CandidateDTO {
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getResumeFilename() {
+        return resumeFilename;
+    }
+
+    public void setResumeFilename(String resumeFilename) {
+        this.resumeFilename = resumeFilename;
     }
 
     public List<WorkExperienceDTO> getWorkExperiences() {
