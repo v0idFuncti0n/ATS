@@ -26,11 +26,4 @@ public class CandidateController {
         return ResponseEntity.ok(savedCandidateDTO);
     }
 
-    @PostMapping(path = "/condidateJson", produces = MediaType.APPLICATION_JSON_VALUE)
-    public  ResponseEntity<CandidateDTO> registerCondidate(@RequestBody CandidateDTO cd ){
-        CandidateDTO savedCandidateDTO = candidateService.createCandidate(cd);
-        System.out.println(savedCandidateDTO.getFirstName());
-        return ResponseEntity.ok(savedCandidateDTO);
-    }
-
 }
