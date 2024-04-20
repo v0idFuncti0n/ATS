@@ -43,45 +43,45 @@ public class Dataloader implements ApplicationRunner {
     public void run(ApplicationArguments args) {
         this.faker = new Faker();
 
-        List<SkillEntity> skillEntityList = new ArrayList<>();
-
-        SkillEntity javaSkillEntity = new SkillEntity();
-        javaSkillEntity.setSkill("java");
-        skillEntityList.add(javaSkillEntity);
-
-        SkillEntity gitSkillEntity = new SkillEntity();
-        gitSkillEntity.setSkill("git");
-        skillEntityList.add(gitSkillEntity);
-
-        SkillEntity mysqlSkillEntity = new SkillEntity();
-        mysqlSkillEntity.setSkill("mysql");
-        skillEntityList.add(mysqlSkillEntity);
-
-        SkillEntity githubSkillEntity = new SkillEntity();
-        githubSkillEntity.setSkill("github");
-        skillEntityList.add(githubSkillEntity);
-
-        SkillEntity springBootSkillEntity = new SkillEntity();
-        springBootSkillEntity.setSkill("spring boot");
-        skillEntityList.add(springBootSkillEntity);
-
-        SkillEntity angularSkillEntity = new SkillEntity();
-        angularSkillEntity.setSkill("angular");
-        skillEntityList.add(angularSkillEntity);
-
-        SkillEntity cSharpSkillsEntity = new SkillEntity();
-        cSharpSkillsEntity.setSkill("C#");
-        skillEntityList.add(cSharpSkillsEntity);
-
-        SkillEntity aspSkillEntity = new SkillEntity();
-        aspSkillEntity.setSkill("ASP.net");
-        skillEntityList.add(aspSkillEntity);
-
-        SkillEntity reactSkillEntity = new SkillEntity();
-        reactSkillEntity.setSkill("react");
-        skillEntityList.add(reactSkillEntity);
-
         for (int i = 0; i < CANDIDATE_NUMBER_TO_GENERATE; i++) {
+            List<SkillEntity> skillEntityList = new ArrayList<>();
+
+            SkillEntity javaSkillEntity = new SkillEntity();
+            javaSkillEntity.setSkill("java");
+            skillEntityList.add(javaSkillEntity);
+
+            SkillEntity gitSkillEntity = new SkillEntity();
+            gitSkillEntity.setSkill("git");
+            skillEntityList.add(gitSkillEntity);
+
+            SkillEntity mysqlSkillEntity = new SkillEntity();
+            mysqlSkillEntity.setSkill("mysql");
+            skillEntityList.add(mysqlSkillEntity);
+
+            SkillEntity githubSkillEntity = new SkillEntity();
+            githubSkillEntity.setSkill("github");
+            skillEntityList.add(githubSkillEntity);
+
+            SkillEntity springBootSkillEntity = new SkillEntity();
+            springBootSkillEntity.setSkill("spring boot");
+            skillEntityList.add(springBootSkillEntity);
+
+            SkillEntity angularSkillEntity = new SkillEntity();
+            angularSkillEntity.setSkill("angular");
+            skillEntityList.add(angularSkillEntity);
+
+            SkillEntity cSharpSkillsEntity = new SkillEntity();
+            cSharpSkillsEntity.setSkill("C#");
+            skillEntityList.add(cSharpSkillsEntity);
+
+            SkillEntity aspSkillEntity = new SkillEntity();
+            aspSkillEntity.setSkill("ASP.net");
+            skillEntityList.add(aspSkillEntity);
+
+            SkillEntity reactSkillEntity = new SkillEntity();
+            reactSkillEntity.setSkill("react");
+            skillEntityList.add(reactSkillEntity);
+
             CandidateEntity candidateEntity = new CandidateEntity();
 
             candidateEntity.setFirstName(this.faker.name().firstName());
@@ -102,15 +102,16 @@ public class Dataloader implements ApplicationRunner {
 
                 SkillEntity skillEntity = skillEntityListCopy.get(randomSkillIndex);
                 candidateSkills.add(skillEntity);
+
                 skillEntityListCopy.remove(randomSkillIndex);
             }
 
-            candidateEntity.setSkills(candidateSkills);
-            CandidateEntity savedCandidateEntity = this.candidateRepository.save(candidateEntity);
-            savedCandidateEntity.getSkills().forEach(skillEntity -> {
-                skillEntity.setCandidate(savedCandidateEntity);
-                skillRepository.save(skillEntity);
+            CandidateEntity saved = candidateRepository.save(candidateEntity);
+            candidateSkills.forEach(skillEntity -> {
+                skillEntity.setCandidate(saved);
             });
+            saved.setSkills(candidateSkills);
+            candidateRepository.save(saved);
         }
     }
 }

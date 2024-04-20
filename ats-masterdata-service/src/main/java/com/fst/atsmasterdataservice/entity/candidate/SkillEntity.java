@@ -16,7 +16,7 @@ public class SkillEntity {
 
     private String skill;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "candidate_id")
     private CandidateEntity candidate;
 
@@ -50,5 +50,15 @@ public class SkillEntity {
 
     public void setCandidate(CandidateEntity candidate) {
         this.candidate = candidate;
+    }
+
+    @Override
+    public String toString() {
+        return "SkillEntity{" +
+                "id=" + id +
+                ", version=" + version +
+                ", skill='" + skill + '\'' +
+                ", candidate=" + candidate.getId() +
+                '}';
     }
 }

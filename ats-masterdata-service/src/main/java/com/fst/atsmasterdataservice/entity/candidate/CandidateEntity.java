@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,8 +39,8 @@ public class CandidateEntity {
     @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL)
     private List<LanguageEntity> languages;
 
-    @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL)
-    private List<SkillEntity> skills;
+    @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<SkillEntity> skills = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -159,5 +160,26 @@ public class CandidateEntity {
 
     public void setSkills(List<SkillEntity> skills) {
         this.skills = skills;
+    }
+
+    @Override
+    public String toString() {
+        return "CandidateEntity{" +
+                "id=" + id +
+                ", version=" + version +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", location='" + location + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", resumeFilename='" + resumeFilename + '\'' +
+                ", verified=" + verified +
+                ", status=" + status +
+                ", workExperiences=" + workExperiences +
+                ", educations=" + educations +
+                ", languages=" + languages +
+                ", skills=" + skills +
+                '}';
     }
 }
