@@ -1,7 +1,11 @@
 package com.fst.atsmasterdataservice.entity.candidate;
 
+import com.fst.atsmasterdataservice.enums.CandidateStatus;
 import jakarta.persistence.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -21,19 +25,20 @@ public class CandidateEntity {
     private String phoneNumber;
     private String location;
     private String birthDate;
-
     private String resumeFilename;
+    private boolean verified;
+    private CandidateStatus status;
 
-    @OneToMany(mappedBy="candidate")
+    @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL)
     private List<WorkExperienceEntity> workExperiences;
 
-    @OneToMany(mappedBy="candidate")
+    @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL)
     private List<EducationEntity> educations;
 
-    @OneToMany(mappedBy="candidate")
+    @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL)
     private List<LanguageEntity> languages;
 
-    @OneToMany(mappedBy="candidate")
+    @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL)
     private List<SkillEntity> skills;
 
     public Long getId() {
@@ -106,6 +111,22 @@ public class CandidateEntity {
 
     public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
+    public CandidateStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CandidateStatus status) {
+        this.status = status;
     }
 
     public List<WorkExperienceEntity> getWorkExperiences() {

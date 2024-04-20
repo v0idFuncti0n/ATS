@@ -31,6 +31,8 @@ dependencies {
     implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
     implementation "org.mapstruct:mapstruct:${mapstructVersion}"
+    implementation ('com.github.javafaker:javafaker:1.0.2') { exclude module: 'snakeyaml' }
+    implementation group: 'org.yaml', name: 'snakeyaml', version: '2.2'
 
     compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
