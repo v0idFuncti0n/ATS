@@ -1,29 +1,32 @@
 package com.fst.atsmasterdataservice.entity;
 
+import com.fst.atsmasterdataservice.entity.candidate.WorkExperienceEntity;
 import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-@Table(name = "bootcamps")
-public class BootcampEntity {
+@Table(name = "tests")
+public class TestEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Version
     private int version;
-    private String name;
+
     private Date startDate;
     private Date endDate;
     private int candidateNumber;
-    private String skillsRequiredTags;
-    private String languagesRequiredTags;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "test_id", referencedColumnName = "id")
-    private TestEntity test;
+    @OneToOne(mappedBy = "test")
+    private BootcampEntity bootcamp;
+
+    @OneToMany(mappedBy="test", cascade = CascadeType.ALL)
+    private List<TestInfoEntity> testInfoList = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -39,14 +42,6 @@ public class BootcampEntity {
 
     public void setVersion(int version) {
         this.version = version;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Date getStartDate() {
@@ -73,27 +68,19 @@ public class BootcampEntity {
         this.candidateNumber = candidateNumber;
     }
 
-    public String getSkillsRequiredTags() {
-        return skillsRequiredTags;
+    public BootcampEntity getBootcamp() {
+        return bootcamp;
     }
 
-    public void setSkillsRequiredTags(String skillsRequiredTags) {
-        this.skillsRequiredTags = skillsRequiredTags;
+    public void setBootcamp(BootcampEntity bootcamp) {
+        this.bootcamp = bootcamp;
     }
 
-    public String getLanguagesRequiredTags() {
-        return languagesRequiredTags;
+    public List<TestInfoEntity> getTestInfoList() {
+        return testInfoList;
     }
 
-    public void setLanguagesRequiredTags(String languagesRequiredTags) {
-        this.languagesRequiredTags = languagesRequiredTags;
-    }
-
-    public TestEntity getTest() {
-        return test;
-    }
-
-    public void setTest(TestEntity test) {
-        this.test = test;
+    public void setTestInfoList(List<TestInfoEntity> testInfoList) {
+        this.testInfoList = testInfoList;
     }
 }

@@ -1,45 +1,19 @@
-package com.fst.atsmasterdataservice.entity;
+package com.fst.atsmasterdataservice.dto;
 
-import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "bootcamps")
-public class BootcampEntity {
+public class BootcampDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Version
-    private int version;
     private String name;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     private int candidateNumber;
     private String skillsRequiredTags;
     private String languagesRequiredTags;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "test_id", referencedColumnName = "id")
-    private TestEntity test;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
-    }
 
     public String getName() {
         return name;
@@ -87,13 +61,5 @@ public class BootcampEntity {
 
     public void setLanguagesRequiredTags(String languagesRequiredTags) {
         this.languagesRequiredTags = languagesRequiredTags;
-    }
-
-    public TestEntity getTest() {
-        return test;
-    }
-
-    public void setTest(TestEntity test) {
-        this.test = test;
     }
 }
