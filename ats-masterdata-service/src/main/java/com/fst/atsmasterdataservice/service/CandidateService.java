@@ -100,4 +100,9 @@ public class CandidateService {
 
         return candidateMapper.entityToDTO(candidateRepository.save(candidateVerified));
     }
+
+    public CandidateDTO getCandidateById(Long id) {
+        CandidateEntity candidate = candidateRepository.findById(id).get();
+        return candidateMapper.entityToDTO(candidate);
+    }
 }

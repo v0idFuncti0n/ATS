@@ -38,4 +38,10 @@ public class CandidateController {
         return ResponseEntity.ok(candidateVerified);
     }
 
+    @GetMapping(path = "/candidate/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CandidateDTO> getCandidateById(@PathVariable("id") Long id) throws IOException {
+        CandidateDTO candidate = candidateService.getCandidateById(id);
+        return ResponseEntity.ok(candidate);
+    }
+
 }
