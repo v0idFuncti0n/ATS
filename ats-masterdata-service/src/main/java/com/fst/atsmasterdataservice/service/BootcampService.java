@@ -2,6 +2,7 @@ package com.fst.atsmasterdataservice.service;
 
 import com.fst.atsmasterdataservice.dto.BootcampDTO;
 import com.fst.atsmasterdataservice.entity.BootcampEntity;
+import com.fst.atsmasterdataservice.entity.candidate.CandidateEntity;
 import com.fst.atsmasterdataservice.mapper.BootcampMapper;
 import com.fst.atsmasterdataservice.repository.BootcampRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,10 @@ public class BootcampService {
     public BootcampDTO createBootcamp(BootcampDTO bootcampDTO) {
         BootcampEntity bootcampEntity = bootcampMapper.dtoToEntity(bootcampDTO);
         return bootcampMapper.entityToDTO(bootcampRepository.save(bootcampEntity));
+    }
+
+    public BootcampDTO getBootcampById(Long id) {
+        BootcampEntity bootcamp = bootcampRepository.findById(id).get();
+        return bootcampMapper.entityToDTO(bootcamp);
     }
 }

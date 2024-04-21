@@ -1,13 +1,14 @@
 package com.fst.atsmasterdataservice.controller;
 
 import com.fst.atsmasterdataservice.dto.BootcampDTO;
+import com.fst.atsmasterdataservice.dto.candidate.CandidateDTO;
 import com.fst.atsmasterdataservice.service.BootcampService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 @RestController
 public class BootcampController {
@@ -23,5 +24,11 @@ public class BootcampController {
     public ResponseEntity<BootcampDTO> createBootcamp(@RequestBody BootcampDTO bootcampDTO) {
         BootcampDTO savedBootcampDTO = bootcampService.createBootcamp(bootcampDTO);
         return ResponseEntity.ok(savedBootcampDTO);
+    }
+
+    @GetMapping(path = "/bootcamp/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BootcampDTO> getBootcampById(@PathVariable("id") Long id) throws IOException {
+        BootcampDTO bootcamp = bootcampService.getBootcampById(id);
+        return ResponseEntity.ok(bootcamp);
     }
 }
