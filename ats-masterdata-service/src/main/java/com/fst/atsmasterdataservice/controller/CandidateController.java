@@ -32,4 +32,10 @@ public class CandidateController {
         return ResponseEntity.ok(resumeFile);
     }
 
+    @PostMapping(path = "/candidate/{candidateId}/verify", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CandidateDTO> verifyCandidate(@RequestBody CandidateDTO candidate, @PathVariable Long candidateId) {
+        CandidateDTO candidateVerified = candidateService.verifyCandidate(candidate, candidateId);
+        return ResponseEntity.ok(candidateVerified);
+    }
+
 }

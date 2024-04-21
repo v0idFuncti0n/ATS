@@ -10,7 +10,6 @@ import org.mapstruct.Mappings;
 public interface CandidateMapper {
 
     @Mappings({
-            @Mapping(target = "id", ignore = true),
             @Mapping(target = "version", ignore = true)
     })
     CandidateEntity dtoToEntity(CandidateDTO dto);

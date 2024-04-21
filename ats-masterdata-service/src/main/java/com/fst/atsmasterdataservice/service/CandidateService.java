@@ -5,6 +5,7 @@ import com.fst.atsmasterdataservice.entity.candidate.CandidateEntity;
 import com.fst.atsmasterdataservice.feign.ATSResumeParserFeignClient;
 import com.fst.atsmasterdataservice.mapper.CandidateMapper;
 import com.fst.atsmasterdataservice.repository.candidate.*;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -63,5 +64,40 @@ public class CandidateService {
     public Resource getCandidateResumeFile(Long id) {
         CandidateDTO candidate = candidateMapper.entityToDTO(candidateRepository.findById(id).get());
         return atsResumeParserFeignClient.getResumeFile(candidate.getResumeFilename()).getBody();
+    }
+
+    public CandidateDTO verifyCandidate(CandidateDTO candidate, Long candidateId) {
+        CandidateEntity candidateToUpdateEntity = candidateRepository.findById(candidateId).get();
+        candidateToUpdateEntity.getSkills().forEach(skillEntity -> {
+            skillEntity.setCandidate(null);
+            skillRepository.deleteById(skillEntity.getId());
+        });
+
+        candidateToUpdateEntity.getEducations().forEach(educationEntity -> {
+            educationEntity.setCandidate(null);
+            educationRepository.deleteById(educationEntity.getId());
+        });
+
+        candidateToUpdateEntity.getWorkExperiences().forEach(workExperienceEntity -> {
+            workExperienceEntity.setCandidate(null);
+            workExperienceRepository.deleteById(workExperienceEntity.getId());
+        });
+
+        candidateToUpdateEntity.getLanguages().forEach(languageEntity -> {
+            languageEntity.setCandidate(null);
+            languageRepository.deleteById(languageEntity.getId());
+        });
+
+        CandidateDTO candidateToUpdateDTO = candidateMapper.entityToDTO(candidateToUpdateEntity);
+        BeanUtils.copyProperties(candidate, candidateToUpdateDTO);
+        candidateToUpdateDTO.setVerified(true);
+        candidateToUpdateDTO.setId(candidateId);
+
+        CandidateEntity candidateVerified = candidateMapper.dtoToEntity(candidateToUpdateDTO);
+        candidateVerified.getSkills().forEach(skillEntity -> {
+            skillEntity.setCandidate(candidateVerified);
+        });
+
+        return candidateMapper.entityToDTO(candidateRepository.save(candidateVerified));
     }
 }

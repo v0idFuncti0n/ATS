@@ -1,6 +1,5 @@
 package com.fst.atsmasterdataservice.service;
 
-import com.fst.atsmasterdataservice.dto.TestDTO;
 import com.fst.atsmasterdataservice.dto.TestInfoDTO;
 import com.fst.atsmasterdataservice.entity.TestEntity;
 import com.fst.atsmasterdataservice.entity.TestInfoEntity;
@@ -12,8 +11,7 @@ import com.fst.atsmasterdataservice.repository.candidate.CandidateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 
 @Service

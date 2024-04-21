@@ -1,9 +1,13 @@
 package com.fst.atsmasterdataservice.dto.candidate;
 
 
+import com.fst.atsmasterdataservice.enums.CandidateStatus;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class CandidateDTO {
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
@@ -11,12 +15,24 @@ public class CandidateDTO {
     private String location;
     private String birthDate;
 
+    private boolean verified;
+
     private String resumeFilename;
 
-    private List<WorkExperienceDTO> workExperiences;
-    private List<EducationDTO> educations;
-    private List<SkillDTO> skills;
-    private List<LanguageDTO> languages;
+    private CandidateStatus status;
+
+    private List<WorkExperienceDTO> workExperiences = new ArrayList<>();
+    private List<EducationDTO> educations = new ArrayList<>();
+    private List<SkillDTO> skills = new ArrayList<>();
+    private List<LanguageDTO> languages = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -66,6 +82,14 @@ public class CandidateDTO {
         this.birthDate = birthDate;
     }
 
+    public boolean isVerified() {
+        return verified;
+    }
+
+    public void setVerified(boolean verified) {
+        this.verified = verified;
+    }
+
     public String getResumeFilename() {
         return resumeFilename;
     }
@@ -76,6 +100,14 @@ public class CandidateDTO {
 
     public List<WorkExperienceDTO> getWorkExperiences() {
         return workExperiences;
+    }
+
+    public CandidateStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(CandidateStatus status) {
+        this.status = status;
     }
 
     public void setWorkExperiences(List<WorkExperienceDTO> workExperiences) {

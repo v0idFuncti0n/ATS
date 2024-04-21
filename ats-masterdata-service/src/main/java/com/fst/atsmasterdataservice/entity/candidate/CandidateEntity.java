@@ -6,7 +6,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -31,13 +30,13 @@ public class CandidateEntity {
     private CandidateStatus status;
 
     @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL)
-    private List<WorkExperienceEntity> workExperiences;
+    private List<WorkExperienceEntity> workExperiences = new ArrayList<>();
 
     @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL)
-    private List<EducationEntity> educations;
+    private List<EducationEntity> educations = new ArrayList<>();
 
     @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL)
-    private List<LanguageEntity> languages;
+    private List<LanguageEntity> languages = new ArrayList<>();
 
     @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<SkillEntity> skills = new ArrayList<>();
