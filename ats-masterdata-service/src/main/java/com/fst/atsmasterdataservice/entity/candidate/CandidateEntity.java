@@ -1,12 +1,13 @@
 package com.fst.atsmasterdataservice.entity.candidate;
 
+import com.fst.atsmasterdataservice.entity.BootcampEntity;
 import com.fst.atsmasterdataservice.enums.CandidateStatus;
+import com.fst.atsmasterdataservice.enums.LanguageLevel;
 import jakarta.persistence.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Entity
 @Table(name = "candidates")
@@ -40,6 +41,10 @@ public class CandidateEntity {
 
     @OneToMany(mappedBy="candidate", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<SkillEntity> skills = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "bootcamp_id")
+    private BootcampEntity bootcamp;
 
     public Long getId() {
         return id;
@@ -161,6 +166,14 @@ public class CandidateEntity {
         this.skills = skills;
     }
 
+    public BootcampEntity getBootcamp() {
+        return bootcamp;
+    }
+
+    public void setBootcamp(BootcampEntity bootcamp) {
+        this.bootcamp = bootcamp;
+    }
+
     @Override
     public String toString() {
         return "CandidateEntity{" +
@@ -180,5 +193,29 @@ public class CandidateEntity {
                 ", languages=" + languages +
                 ", skills=" + skills +
                 '}';
+    }
+
+    public boolean hasSkill(String skillRequired) {
+        AtomicBoolean candidateHasSkill = new AtomicBoolean(false);
+        skills.forEach(skillEntity -> {
+            if(skillEntity.getSkill().toLowerCase().contains(skillRequired.toLowerCase())) {
+                candidateHasSkill.set(true);
+            }
+        });
+        if(candidateHasSkill.get()) {
+            System.out.println("candidate id: " + id + " has skill: " + skillRequired);
+        }
+        return candidateHasSkill.get();
+    }
+
+    public boolean hasLanguage(String languageRequired, LanguageLevel languageLevelRequired) {
+        AtomicBoolean candidateHasLanguage = new AtomicBoolean(false);
+        languages.forEach(languageEntity -> {
+            if(languageEntity.getLanguage().equalsIgnoreCase(languageRequired) && languageEntity.getLevel().getValue() >= languageLevelRequired.getValue()) {
+                candidateHasLanguage.set(true);
+                System.out.println("candidate id: " + id + " has lanagauge: " + languageRequired + " and level: " + languageEntity.getLevel().name());
+            }
+        });
+        return candidateHasLanguage.get();
     }
 }

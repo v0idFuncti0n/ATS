@@ -4,6 +4,7 @@ import com.fst.atsmasterdataservice.entity.candidate.CandidateEntity;
 import com.fst.atsmasterdataservice.entity.candidate.LanguageEntity;
 import com.fst.atsmasterdataservice.entity.candidate.SkillEntity;
 import com.fst.atsmasterdataservice.enums.CandidateStatus;
+import com.fst.atsmasterdataservice.enums.LanguageLevel;
 import com.fst.atsmasterdataservice.repository.BootcampRepository;
 import com.fst.atsmasterdataservice.repository.candidate.*;
 import com.github.javafaker.Faker;
@@ -143,13 +144,13 @@ public class Dataloader implements ApplicationRunner {
         languageList.add("French");
         languageList.add("Arabic");
 
-        List<String> levelList = new ArrayList<>();
-        levelList.add("A1");
-        levelList.add("A2");
-        levelList.add("B1");
-        levelList.add("B2");
-        levelList.add("C1");
-        levelList.add("C2");
+        List<LanguageLevel> levelList = new ArrayList<>();
+        levelList.add(LanguageLevel.A1);
+        levelList.add(LanguageLevel.A2);
+        levelList.add(LanguageLevel.B1);
+        levelList.add(LanguageLevel.B2);
+        levelList.add(LanguageLevel.C1);
+        levelList.add(LanguageLevel.C2);
 
         List<LanguageEntity> languages = new ArrayList<>();
         languageList.forEach(language->{

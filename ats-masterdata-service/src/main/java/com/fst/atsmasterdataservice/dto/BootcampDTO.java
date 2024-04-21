@@ -6,14 +6,25 @@ import java.util.Date;
 
 public class BootcampDTO {
 
+    private Long id;
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     private int candidateNumber;
-    private String skillsRequiredTags;
-    private String languagesRequiredTags;
+    private String skillRequired;
+    private String languageRequired;
+
+    private String languageLevelRequired;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -47,19 +58,27 @@ public class BootcampDTO {
         this.candidateNumber = candidateNumber;
     }
 
-    public String getSkillsRequiredTags() {
-        return skillsRequiredTags;
+    public String getSkillRequired() {
+        return skillRequired;
     }
 
-    public void setSkillsRequiredTags(String skillsRequiredTags) {
-        this.skillsRequiredTags = skillsRequiredTags;
+    public void setSkillRequired(String skillRequired) {
+        this.skillRequired = skillRequired;
     }
 
-    public String getLanguagesRequiredTags() {
-        return languagesRequiredTags;
+    public String getLanguageRequired() {
+        return languageRequired;
     }
 
-    public void setLanguagesRequiredTags(String languagesRequiredTags) {
-        this.languagesRequiredTags = languagesRequiredTags;
+    public void setLanguageRequired(String languageRequired) {
+        this.languageRequired = languageRequired;
+    }
+
+    public String getLanguageLevelRequired() {
+        return languageLevelRequired;
+    }
+
+    public void setLanguageLevelRequired(String languageLevelRequired) {
+        this.languageLevelRequired = languageLevelRequired;
     }
 }

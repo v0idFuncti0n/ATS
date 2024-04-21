@@ -1,9 +1,12 @@
 package com.fst.atsmasterdataservice.entity;
 
+import com.fst.atsmasterdataservice.entity.candidate.CandidateEntity;
+import com.fst.atsmasterdataservice.enums.LanguageLevel;
 import jakarta.persistence.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "bootcamps")
@@ -18,12 +21,17 @@ public class BootcampEntity {
     private Date startDate;
     private Date endDate;
     private int candidateNumber;
-    private String skillsRequiredTags;
-    private String languagesRequiredTags;
+    private String skillRequired;
+    private String languageRequired;
+
+    private LanguageLevel languageLevelRequired;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "test_id", referencedColumnName = "id")
     private TestEntity test;
+
+    @OneToMany(mappedBy="bootcamp")
+    private List<CandidateEntity> candidates = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -73,20 +81,28 @@ public class BootcampEntity {
         this.candidateNumber = candidateNumber;
     }
 
-    public String getSkillsRequiredTags() {
-        return skillsRequiredTags;
+    public String getSkillRequired() {
+        return skillRequired;
     }
 
-    public void setSkillsRequiredTags(String skillsRequiredTags) {
-        this.skillsRequiredTags = skillsRequiredTags;
+    public void setSkillRequired(String skillsRequiredTags) {
+        this.skillRequired = skillsRequiredTags;
     }
 
-    public String getLanguagesRequiredTags() {
-        return languagesRequiredTags;
+    public String getLanguageRequired() {
+        return languageRequired;
     }
 
-    public void setLanguagesRequiredTags(String languagesRequiredTags) {
-        this.languagesRequiredTags = languagesRequiredTags;
+    public void setLanguageRequired(String languagesRequiredTags) {
+        this.languageRequired = languagesRequiredTags;
+    }
+
+    public LanguageLevel getLanguageLevelRequired() {
+        return languageLevelRequired;
+    }
+
+    public void setLanguageLevelRequired(LanguageLevel languageLevelRequired) {
+        this.languageLevelRequired = languageLevelRequired;
     }
 
     public TestEntity getTest() {
@@ -95,5 +111,13 @@ public class BootcampEntity {
 
     public void setTest(TestEntity test) {
         this.test = test;
+    }
+
+    public List<CandidateEntity> getCandidates() {
+        return candidates;
+    }
+
+    public void setCandidates(List<CandidateEntity> candidates) {
+        this.candidates = candidates;
     }
 }

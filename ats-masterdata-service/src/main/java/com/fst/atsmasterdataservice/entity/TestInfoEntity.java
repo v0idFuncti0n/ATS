@@ -16,6 +16,8 @@ public class TestInfoEntity {
     private int technicalNote;
     private int interviewNote;
 
+    private boolean noteInserted;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "test_id")
     private TestEntity test;
@@ -54,6 +56,14 @@ public class TestInfoEntity {
 
     public void setInterviewNote(int interviewNote) {
         this.interviewNote = interviewNote;
+    }
+
+    public boolean isNoteInserted() {
+        return noteInserted;
+    }
+
+    public void setNoteInserted(boolean noteInserted) {
+        this.noteInserted = noteInserted;
     }
 
     public TestEntity getTest() {

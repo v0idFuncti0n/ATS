@@ -1,5 +1,6 @@
 package com.fst.atsmasterdataservice.entity.candidate;
 
+import com.fst.atsmasterdataservice.enums.LanguageLevel;
 import jakarta.persistence.*;
 
 
@@ -15,7 +16,7 @@ public class LanguageEntity {
     private int version;
 
     private String language;
-    private String level;
+    private LanguageLevel level;
 
     @ManyToOne
     @JoinColumn(name = "candidate_id")
@@ -45,11 +46,11 @@ public class LanguageEntity {
         this.language = language;
     }
 
-    public String getLevel() {
+    public LanguageLevel getLevel() {
         return level;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(LanguageLevel level) {
         this.level = level;
     }
 
