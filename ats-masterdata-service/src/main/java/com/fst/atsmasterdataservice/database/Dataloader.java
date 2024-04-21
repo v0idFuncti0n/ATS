@@ -1,6 +1,7 @@
 package com.fst.atsmasterdataservice.database;
 
 import com.fst.atsmasterdataservice.entity.candidate.CandidateEntity;
+import com.fst.atsmasterdataservice.entity.candidate.LanguageEntity;
 import com.fst.atsmasterdataservice.entity.candidate.SkillEntity;
 import com.fst.atsmasterdataservice.enums.CandidateStatus;
 import com.fst.atsmasterdataservice.repository.BootcampRepository;
@@ -106,12 +107,63 @@ public class Dataloader implements ApplicationRunner {
                 skillEntityListCopy.remove(randomSkillIndex);
             }
 
-            CandidateEntity saved = candidateRepository.save(candidateEntity);
+            List<LanguageEntity> candidateLanguages = new ArrayList<>();
+            List<LanguageEntity> candidateLanguagesCopy = getLanguagesList();
+            for (int k = 0; k < 3 ;k++){
+
+                int randomLanguageIndex = this.faker.random().nextInt(0, candidateLanguagesCopy.size() - 1);
+
+                LanguageEntity languageEntity = candidateLanguagesCopy.get(randomLanguageIndex);
+                candidateLanguages.add(languageEntity);
+
+                candidateLanguagesCopy = deleteLanguageFromList(candidateLanguagesCopy,languageEntity.getLanguage());
+            }
+
+            CandidateEntity savedCandidate = candidateRepository.save(candidateEntity);
             candidateSkills.forEach(skillEntity -> {
-                skillEntity.setCandidate(saved);
+                skillEntity.setCandidate(savedCandidate);
             });
-            saved.setSkills(candidateSkills);
-            candidateRepository.save(saved);
+
+            candidateLanguages.forEach(languageEntity -> {
+                languageEntity.setCandidate(savedCandidate);
+            });
+
+            savedCandidate.setSkills(candidateSkills);
+            savedCandidate.setLanguages(candidateLanguages);
+            candidateRepository.save(savedCandidate);
+
+
         }
+    }
+
+    public List<LanguageEntity> getLanguagesList(){
+        List<String> languageList = new ArrayList<>();
+        languageList.add("English");
+        languageList.add("Spanish");
+        languageList.add("French");
+        languageList.add("Arabic");
+
+        List<String> levelList = new ArrayList<>();
+        levelList.add("A1");
+        levelList.add("A2");
+        levelList.add("B1");
+        levelList.add("B2");
+        levelList.add("C1");
+        levelList.add("C2");
+
+        List<LanguageEntity> languages = new ArrayList<>();
+        languageList.forEach(language->{
+            levelList.forEach(level->{
+                LanguageEntity languageEntity = new LanguageEntity();
+                languageEntity.setLanguage(language);
+                languageEntity.setLevel(level);
+                languages.add(languageEntity);
+            });
+        });
+        return languages;
+    }
+
+    public List<LanguageEntity> deleteLanguageFromList(List<LanguageEntity> languages, String language){
+        return languages.stream().filter(languageEntity -> !languageEntity.getLanguage().equals(language)).toList();
     }
 }
