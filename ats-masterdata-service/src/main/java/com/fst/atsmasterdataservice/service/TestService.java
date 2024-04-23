@@ -5,6 +5,7 @@ import com.fst.atsmasterdataservice.entity.BootcampEntity;
 import com.fst.atsmasterdataservice.entity.TestEntity;
 import com.fst.atsmasterdataservice.entity.TestInfoEntity;
 import com.fst.atsmasterdataservice.entity.candidate.CandidateEntity;
+import com.fst.atsmasterdataservice.enums.CandidateStatus;
 import com.fst.atsmasterdataservice.mapper.TestMapper;
 import com.fst.atsmasterdataservice.repository.BootcampRepository;
 import com.fst.atsmasterdataservice.repository.TestInfoRepository;
@@ -45,17 +46,20 @@ public class TestService {
 
         List<CandidateEntity> candidateEntities = candidateRepository.findAll();
 
-        List<CandidateEntity> candidateEntitiesFilteredBySkill = candidateEntities.stream().filter(candidateEntity -> candidateEntity.hasSkill(bootcamp.getSkillRequired())).toList();
+        List<CandidateEntity> candidateEntitiesFilteredByInPoolStatus = candidateEntities.stream().filter(candidateEntity -> candidateEntity.getStatus().equals(CandidateStatus.IN_POOL)).toList();
+        System.out.println("total candidates: " + candidateEntitiesFilteredByInPoolStatus.size());
+
+        List<CandidateEntity> candidateEntitiesFilteredBySkill = candidateEntitiesFilteredByInPoolStatus.stream().filter(candidateEntity -> candidateEntity.hasSkill(bootcamp.getSkillRequired())).toList();
         System.out.println("total candidates: " + candidateEntitiesFilteredBySkill.size());
 
         List<CandidateEntity> candidateEntitiesFilteredByLanguage = candidateEntitiesFilteredBySkill.stream().filter(candidateEntity -> candidateEntity.hasLanguage(bootcamp.getLanguageRequired(), bootcamp.getLanguageLevelRequired())).toList();
         System.out.println("total candidates: " + candidateEntitiesFilteredByLanguage.size());
 
-        List<CandidateEntity> candidateEntitiesFilteredByAvailableBootcampNumber = candidateEntitiesFilteredByLanguage.stream().limit(testEntity.getCandidateNumber()).toList();
-        System.out.println("total candidates: " + candidateEntitiesFilteredByAvailableBootcampNumber.size());
+        List<CandidateEntity> candidateEntitiesFilteredByAvailableTestNumber = candidateEntitiesFilteredByLanguage.stream().limit(testEntity.getCandidateNumber()).toList();
+        System.out.println("total candidates: " + candidateEntitiesFilteredByAvailableTestNumber.size());
 
         List<TestInfoEntity> testInfoEntities = new ArrayList<>();
-        candidateEntitiesFilteredByAvailableBootcampNumber.forEach(candidateEntity -> {
+        candidateEntitiesFilteredByAvailableTestNumber.forEach(candidateEntity -> {
             TestInfoEntity testInfoEntity = new TestInfoEntity();
             testInfoEntity.setTest(testEntity);
             testInfoEntity.setCandidate(candidateEntity);
@@ -64,6 +68,9 @@ public class TestService {
             testInfoEntity.setNoteInserted(false);
 
             testInfoEntities.add(testInfoEntity);
+
+            candidateEntity.setStatus(CandidateStatus.IN_TEST);
+            candidateRepository.save(candidateEntity);
         });
 
         testEntity.setTestInfoList(testInfoEntities);

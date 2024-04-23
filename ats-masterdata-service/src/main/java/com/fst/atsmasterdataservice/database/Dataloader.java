@@ -19,7 +19,9 @@ import java.util.List;
 @Component
 public class Dataloader implements ApplicationRunner {
 
-    public static final int CANDIDATE_NUMBER_TO_GENERATE = 50;
+    public static final int CANDIDATE_NUMBER_TO_GENERATE = 500;
+    public static final int CANDIDATE_AMOUNT_OF_SKILLS_TO_GENERATE = 6;
+    public static final int CANDIDATE_AMOUNT_OF_LANGUAGE_TO_GENERATE = 4;
 
     private CandidateRepository candidateRepository;
     private EducationRepository educationRepository;
@@ -46,44 +48,6 @@ public class Dataloader implements ApplicationRunner {
         this.faker = new Faker();
 
         for (int i = 0; i < CANDIDATE_NUMBER_TO_GENERATE; i++) {
-            List<SkillEntity> skillEntityList = new ArrayList<>();
-
-            SkillEntity javaSkillEntity = new SkillEntity();
-            javaSkillEntity.setSkill("java");
-            skillEntityList.add(javaSkillEntity);
-
-            SkillEntity gitSkillEntity = new SkillEntity();
-            gitSkillEntity.setSkill("git");
-            skillEntityList.add(gitSkillEntity);
-
-            SkillEntity mysqlSkillEntity = new SkillEntity();
-            mysqlSkillEntity.setSkill("mysql");
-            skillEntityList.add(mysqlSkillEntity);
-
-            SkillEntity githubSkillEntity = new SkillEntity();
-            githubSkillEntity.setSkill("github");
-            skillEntityList.add(githubSkillEntity);
-
-            SkillEntity springBootSkillEntity = new SkillEntity();
-            springBootSkillEntity.setSkill("spring boot");
-            skillEntityList.add(springBootSkillEntity);
-
-            SkillEntity angularSkillEntity = new SkillEntity();
-            angularSkillEntity.setSkill("angular");
-            skillEntityList.add(angularSkillEntity);
-
-            SkillEntity cSharpSkillsEntity = new SkillEntity();
-            cSharpSkillsEntity.setSkill("C#");
-            skillEntityList.add(cSharpSkillsEntity);
-
-            SkillEntity aspSkillEntity = new SkillEntity();
-            aspSkillEntity.setSkill("ASP.net");
-            skillEntityList.add(aspSkillEntity);
-
-            SkillEntity reactSkillEntity = new SkillEntity();
-            reactSkillEntity.setSkill("react");
-            skillEntityList.add(reactSkillEntity);
-
             CandidateEntity candidateEntity = new CandidateEntity();
 
             candidateEntity.setFirstName(this.faker.name().firstName());
@@ -97,9 +61,9 @@ public class Dataloader implements ApplicationRunner {
             candidateEntity.setResumeFilename("a2cc1abc-2c9f-443a-9387-b5cdde0765dc.pdf");
 
             List<SkillEntity> candidateSkills = new ArrayList<>();
-            List<SkillEntity> skillEntityListCopy = new ArrayList<>(skillEntityList);
+            List<SkillEntity> skillEntityListCopy = getSkillsList();
 
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < CANDIDATE_AMOUNT_OF_SKILLS_TO_GENERATE; j++) {
                 int randomSkillIndex = this.faker.random().nextInt(0, skillEntityListCopy.size() - 1);
 
                 SkillEntity skillEntity = skillEntityListCopy.get(randomSkillIndex);
@@ -110,7 +74,7 @@ public class Dataloader implements ApplicationRunner {
 
             List<LanguageEntity> candidateLanguages = new ArrayList<>();
             List<LanguageEntity> candidateLanguagesCopy = getLanguagesList();
-            for (int k = 0; k < 3 ;k++){
+            for (int k = 0; k < CANDIDATE_AMOUNT_OF_LANGUAGE_TO_GENERATE ;k++){
 
                 int randomLanguageIndex = this.faker.random().nextInt(0, candidateLanguagesCopy.size() - 1);
 
@@ -162,6 +126,28 @@ public class Dataloader implements ApplicationRunner {
             });
         });
         return languages;
+    }
+
+    public List<SkillEntity> getSkillsList() {
+        List<String> skills = new ArrayList<>();
+        skills.add("java");
+        skills.add("git");
+        skills.add("mysql");
+        skills.add("github");
+        skills.add("spring boot");
+        skills.add("angular");
+        skills.add("C#");
+        skills.add("ASP.net");
+        skills.add("react");
+
+        List<SkillEntity> skillEntityList = new ArrayList<>();
+        skills.forEach(skill -> {
+            SkillEntity skillEntity = new SkillEntity();
+            skillEntity.setSkill(skill);
+            skillEntityList.add(skillEntity);
+        });
+
+        return skillEntityList;
     }
 
     public List<LanguageEntity> deleteLanguageFromList(List<LanguageEntity> languages, String language){

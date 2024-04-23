@@ -32,6 +32,7 @@ public class TestInfoService {
 
     public TestInfoDTO createTestInfo(TestInfoDTO testInfoDTO, Long testId, Long candidateId) {
         TestInfoEntity testInfo = testInfoMapper.dtoToEntity(testInfoDTO);
+        testInfo.setNoteInserted(true);
 
         TestEntity test = testRepository.findById(testId).get();
         testInfo.setTest(test);
