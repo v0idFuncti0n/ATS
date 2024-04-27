@@ -1,6 +1,7 @@
 package com.fst.atsmasterdataservice.entity;
 
 import com.fst.atsmasterdataservice.entity.candidate.WorkExperienceEntity;
+import com.fst.atsmasterdataservice.enums.TestStatus;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ public class TestEntity {
     private Date startDate;
     private Date endDate;
     private int candidateNumber;
+
+    private TestStatus status;
 
     @OneToOne(mappedBy = "test")
     private BootcampEntity bootcamp;
@@ -66,6 +69,14 @@ public class TestEntity {
 
     public void setCandidateNumber(int candidateNumber) {
         this.candidateNumber = candidateNumber;
+    }
+
+    public TestStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TestStatus status) {
+        this.status = status;
     }
 
     public BootcampEntity getBootcamp() {

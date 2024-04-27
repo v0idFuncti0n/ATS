@@ -10,7 +10,6 @@ import org.mapstruct.Mappings;
 public interface TestMapper {
 
     @Mappings({
-            @Mapping(target = "id", ignore = true),
             @Mapping(target = "version", ignore = true)
     })
     TestEntity dtoToEntity(TestDTO dto);

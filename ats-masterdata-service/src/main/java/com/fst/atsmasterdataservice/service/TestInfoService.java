@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,22 +31,37 @@ public class TestInfoService {
         this.testInfoMapper = testInfoMapper;
     }
 
-    public TestInfoDTO createTestInfo(TestInfoDTO testInfoDTO, Long testId, Long candidateId) {
-        TestInfoEntity testInfo = testInfoMapper.dtoToEntity(testInfoDTO);
-        testInfo.setNoteInserted(true);
+    public TestInfoDTO updateTestInfo(TestInfoDTO testInfoDTO, Long testInfoId) {
+        TestInfoEntity testInfoEntity = testInfoRepository.findById(testInfoId).get();
 
-        TestEntity test = testRepository.findById(testId).get();
-        testInfo.setTest(test);
+        testInfoEntity.setInterviewNote(testInfoDTO.getInterviewNote());
+        testInfoEntity.setTechnicalNote(testInfoDTO.getTechnicalNote());
 
-        List<TestInfoEntity> testInfoList = test.getTestInfoList();
-        testInfoList.add(testInfo);
+        float finalNote = (testInfoEntity.getInterviewNote() + testInfoEntity.getTechnicalNote()) / 2;
+        testInfoEntity.setFinalNote(finalNote);
+        testInfoEntity = testInfoRepository.save(testInfoEntity);
 
-        test.setTestInfoList(testInfoList);
+        return testInfoMapper.entityToDTO(testInfoEntity);
+    }
 
-        CandidateEntity candidate = candidateRepository.findById(candidateId).get();
-        testInfo.setCandidate(candidate);
+    public List<TestInfoEntity> deleteTestInfoFromTest(Long testId, Long candidateId) {
+        TestEntity testEntity = testRepository.findById(testId).get();
+        List<TestInfoEntity> testInfoEntities = new ArrayList<>(testEntity.getTestInfoList());
+        List<TestInfoEntity> testInfoEntitiesUpdated = new ArrayList<>();
+        testInfoEntities.forEach(testInfoEntity -> {
+            if(!(testInfoEntity.getCandidate().getId() == candidateId)) {
+                testInfoEntitiesUpdated.add(testInfoEntity);
+            } else {
+                testInfoEntity.setCandidate(null);
+                testInfoRepository.save(testInfoEntity);
+                testInfoRepository.deleteById(testInfoEntity.getId());
+            }
+        });
+        return testInfoEntitiesUpdated;
+    }
 
-        testRepository.save(test);
-        return testInfoMapper.entityToDTO(testInfo);
+    public List<TestInfoEntity> getBestCandidateInTest(TestEntity test) {
+        List<TestInfoEntity> testInfoEntities = testInfoRepository.findByTestOrderByFinalNoteDescIdAsc(test);
+        return testInfoEntities.stream().limit(test.getBootcamp().getCandidateNumber()).toList();
     }
 }

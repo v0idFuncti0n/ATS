@@ -1,5 +1,6 @@
 package com.fst.atsmasterdataservice.dto;
 
+import com.fst.atsmasterdataservice.enums.TestStatus;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -11,6 +12,8 @@ public class TestDTO {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
     private int candidateNumber;
+
+    private TestStatus status;
 
     public Date getStartDate() {
         return startDate;
@@ -34,5 +37,13 @@ public class TestDTO {
 
     public void setCandidateNumber(int candidateNumber) {
         this.candidateNumber = candidateNumber;
+    }
+
+    public TestStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TestStatus status) {
+        this.status = status;
     }
 }

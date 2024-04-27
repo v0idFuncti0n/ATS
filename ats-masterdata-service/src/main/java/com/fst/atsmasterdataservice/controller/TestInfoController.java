@@ -20,9 +20,9 @@ public class TestInfoController {
         this.testInfoService = testInfoService;
     }
 
-    @PostMapping(path = "/testInfo/{testId}/{candidateId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TestInfoDTO> createTestInfo(@RequestBody TestInfoDTO testInfoDTO, @PathVariable Long testId, @PathVariable Long candidateId) {
-        TestInfoDTO testInfo = testInfoService.createTestInfo(testInfoDTO, testId, candidateId);
+    @PostMapping(path = "/testInfo/{testInfoId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TestInfoDTO> updateTestInfo(@RequestBody TestInfoDTO testInfoDTO, @PathVariable Long testInfoId) {
+        TestInfoDTO testInfo = testInfoService.updateTestInfo(testInfoDTO, testInfoId);
         return ResponseEntity.ok(testInfo);
     }
 }

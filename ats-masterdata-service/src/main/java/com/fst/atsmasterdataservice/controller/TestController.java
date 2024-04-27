@@ -25,4 +25,16 @@ public class TestController {
         TestDTO test = testService.createTest(testDTO, bootcampId);
         return ResponseEntity.ok(test);
     }
+
+    @PostMapping(path = "/test/{testId}/inTesting", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TestDTO> updateTestStatusInTesting(@PathVariable Long testId) {
+        TestDTO test = testService.updateTestStatusInTesting(testId);
+        return ResponseEntity.ok(test);
+    }
+
+    @PostMapping(path = "/test/{testId}/completeTest", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TestDTO> completeTest(@PathVariable Long testId) {
+        TestDTO test = testService.completeTest(testId);
+        return ResponseEntity.ok(test);
+    }
 }

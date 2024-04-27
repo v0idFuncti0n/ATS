@@ -13,10 +13,13 @@ public class TestInfoEntity {
     @Version
     private int version;
 
-    private int technicalNote;
-    private int interviewNote;
+    @Column(precision=2)
+    private float technicalNote;
+    @Column(precision=2)
+    private float interviewNote;
 
-    private boolean noteInserted;
+    @Column(precision=2)
+    private float finalNote;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "test_id")
@@ -42,28 +45,27 @@ public class TestInfoEntity {
         this.version = version;
     }
 
-    public int getTechnicalNote() {
+    public float getTechnicalNote() {
         return technicalNote;
     }
-
-    public void setTechnicalNote(int technicalNote) {
+    public void setTechnicalNote(float technicalNote) {
         this.technicalNote = technicalNote;
     }
 
-    public int getInterviewNote() {
+    public float getInterviewNote() {
         return interviewNote;
     }
 
-    public void setInterviewNote(int interviewNote) {
+    public void setInterviewNote(float interviewNote) {
         this.interviewNote = interviewNote;
     }
 
-    public boolean isNoteInserted() {
-        return noteInserted;
+    public float getFinalNote() {
+        return finalNote;
     }
 
-    public void setNoteInserted(boolean noteInserted) {
-        this.noteInserted = noteInserted;
+    public void setFinalNote(float finalNote) {
+        this.finalNote = finalNote;
     }
 
     public TestEntity getTest() {

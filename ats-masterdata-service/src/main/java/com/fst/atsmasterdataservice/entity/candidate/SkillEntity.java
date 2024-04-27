@@ -16,7 +16,7 @@ public class SkillEntity {
 
     private String skill;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "candidate_id")
     private CandidateEntity candidate;
 

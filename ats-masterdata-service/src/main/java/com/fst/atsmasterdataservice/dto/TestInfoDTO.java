@@ -2,32 +2,41 @@ package com.fst.atsmasterdataservice.dto;
 
 public class TestInfoDTO {
 
-    private int technicalNote;
-    private int interviewNote;
+    private Long id;
+    private float technicalNote;
+    private float interviewNote;
 
-    private boolean noteInserted;
+    private float finalNote;
 
-    public int getTechnicalNote() {
+    public float getTechnicalNote() {
         return technicalNote;
     }
 
-    public void setTechnicalNote(int technicalNote) {
+    public void setTechnicalNote(float technicalNote) {
         this.technicalNote = technicalNote;
     }
 
-    public int getInterviewNote() {
+    public float getInterviewNote() {
         return interviewNote;
     }
 
-    public void setInterviewNote(int interviewNote) {
+    public void setInterviewNote(float interviewNote) {
         this.interviewNote = interviewNote;
     }
 
-    public boolean isNoteInserted() {
-        return noteInserted;
+    public Long getId() {
+        return id;
     }
 
-    public void setNoteInserted(boolean noteInserted) {
-        this.noteInserted = noteInserted;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public float getFinalNote() {
+        return finalNote;
+    }
+
+    public void setFinalNote(float finalNote) {
+        this.finalNote = finalNote;
     }
 }

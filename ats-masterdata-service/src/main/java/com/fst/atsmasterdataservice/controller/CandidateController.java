@@ -44,4 +44,10 @@ public class CandidateController {
         return ResponseEntity.ok(candidate);
     }
 
+    @PostMapping(path = "/candidate/{candidateId}/test/{testId}/refuse", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<CandidateDTO> candidateRefusedTest(@PathVariable Long testId, @PathVariable Long candidateId) {
+        CandidateDTO candidateDTO = candidateService.refuseTest(candidateId, testId);
+        return ResponseEntity.ok(candidateDTO);
+    }
+
 }
