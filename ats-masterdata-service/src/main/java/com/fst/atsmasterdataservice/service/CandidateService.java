@@ -14,6 +14,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import java.util.Collections;
+import java.util.List;
+
 @Service
 public class CandidateService {
 
@@ -126,5 +129,10 @@ public class CandidateService {
         testService.addCandidateInPoolToTest(allCandidates, testEntity, 1);
 
         return candidateMapper.entityToDTO(candidate);
+    }
+
+    public List<CandidateDTO> getCandidates() {
+        List<CandidateEntity> candidates = candidateRepository.findAll();
+        return candidateMapper.listEntityToDTO(candidates);
     }
 }

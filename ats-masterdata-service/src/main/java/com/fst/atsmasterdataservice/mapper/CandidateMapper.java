@@ -6,6 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface CandidateMapper {
 
@@ -15,4 +17,6 @@ public interface CandidateMapper {
     CandidateEntity dtoToEntity(CandidateDTO dto);
 
     CandidateDTO entityToDTO(CandidateEntity entity);
+
+    List<CandidateDTO> listEntityToDTO(List<CandidateEntity> candidate);
 }

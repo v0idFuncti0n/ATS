@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class BootcampController {
@@ -26,9 +27,15 @@ public class BootcampController {
         return ResponseEntity.ok(savedBootcampDTO);
     }
 
-    @GetMapping(path = "/bootcamp/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/bootcamps/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BootcampDTO> getBootcampById(@PathVariable("id") Long id) throws IOException {
         BootcampDTO bootcamp = bootcampService.getBootcampById(id);
         return ResponseEntity.ok(bootcamp);
+    }
+
+    @GetMapping(path = "/bootcamps", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<BootcampDTO>> getBootcamps() throws IOException {
+        List<BootcampDTO> bootcamps = bootcampService.getBootcamps();
+        return ResponseEntity.ok(bootcamps);
     }
 }

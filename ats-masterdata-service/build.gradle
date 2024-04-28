@@ -36,6 +36,8 @@ dependencies {
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
     implementation ('com.github.javafaker:javafaker:1.0.2') { exclude module: 'snakeyaml' }
     implementation group: 'org.yaml', name: 'snakeyaml', version: '2.2'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.5.0'
+
 
     compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
@@ -44,6 +46,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+
 }
 
 dependencyManagement {
