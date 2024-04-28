@@ -9,6 +9,7 @@ import com.fst.atsmasterdataservice.enums.LanguageLevel;
 import com.fst.atsmasterdataservice.repository.BootcampRepository;
 import com.fst.atsmasterdataservice.repository.UserRepository;
 import com.fst.atsmasterdataservice.repository.candidate.*;
+import com.fst.atsmasterdataservice.util.CryptoUtil;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -163,7 +164,7 @@ public class Dataloader implements ApplicationRunner {
         UserEntity admin = new UserEntity();
         admin.setRole("Admin");
         admin.setUsername("admin");
-        admin.setPassword("admin");
+        admin.setPassword(CryptoUtil.encrypt("admin"));
 
         userRepository.save(admin);
     }

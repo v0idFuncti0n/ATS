@@ -5,6 +5,7 @@ import com.fst.atsmasterdataservice.entity.candidate.UserEntity;
 import com.fst.atsmasterdataservice.mapper.UserMapper;
 import com.fst.atsmasterdataservice.repository.UserRepository;
 import com.fst.atsmasterdataservice.request.AuthenticationRequest;
+import com.fst.atsmasterdataservice.util.CryptoUtil;
 import com.fst.atsmasterdataservice.util.JWTUtil;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +27,7 @@ public class UserService {
         Optional<UserEntity> userEntityOptional = userRepository.findByUsername(request.getUsername());
         if(userEntityOptional.isPresent()) {
             UserEntity user = userEntityOptional.get();
-            if(user.getPassword().equals(request.getPassword())){
+            if(request.getPassword().equals(CryptoUtil.decrypt(user.getPassword()))){
                 String token = JWTUtil.generateToken(user.getUsername());
                 UserDTO userDTO = userMapper.entityToDTO(user);
                 userDTO.setRole(user.getRole());
