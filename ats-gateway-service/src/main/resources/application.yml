@@ -19,6 +19,8 @@ spring:
           uri: lb://ats-masterdata-service
           predicates:
             - Path=/**
+          filters:
+            - AuthenticationFilter
         - id: eureka-api
           uri: http://${app.eureka-server}:8761
           predicates:

@@ -3,9 +3,11 @@ package com.fst.atsmasterdataservice.database;
 import com.fst.atsmasterdataservice.entity.candidate.CandidateEntity;
 import com.fst.atsmasterdataservice.entity.candidate.LanguageEntity;
 import com.fst.atsmasterdataservice.entity.candidate.SkillEntity;
+import com.fst.atsmasterdataservice.entity.candidate.UserEntity;
 import com.fst.atsmasterdataservice.enums.CandidateStatus;
 import com.fst.atsmasterdataservice.enums.LanguageLevel;
 import com.fst.atsmasterdataservice.repository.BootcampRepository;
+import com.fst.atsmasterdataservice.repository.UserRepository;
 import com.fst.atsmasterdataservice.repository.candidate.*;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,24 +30,27 @@ public class Dataloader implements ApplicationRunner {
     private LanguageRepository languageRepository;
     private SkillRepository skillRepository;
     private WorkExperienceRepository workExperienceRepository;
-
     private BootcampRepository bootcampRepository;
+    private UserRepository userRepository;
 
     private Faker faker;
 
     @Autowired
-    public Dataloader(CandidateRepository candidateRepository, EducationRepository educationRepository, LanguageRepository languageRepository, SkillRepository skillRepository, WorkExperienceRepository workExperienceRepository, BootcampRepository bootcampRepository) {
+    public Dataloader(CandidateRepository candidateRepository, EducationRepository educationRepository, LanguageRepository languageRepository, SkillRepository skillRepository, WorkExperienceRepository workExperienceRepository, BootcampRepository bootcampRepository, UserRepository userRepository) {
         this.candidateRepository = candidateRepository;
         this.educationRepository = educationRepository;
         this.languageRepository = languageRepository;
         this.skillRepository = skillRepository;
         this.workExperienceRepository = workExperienceRepository;
         this.bootcampRepository = bootcampRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void run(ApplicationArguments args) {
         this.faker = new Faker();
+
+        createAdminUser();
 
         for (int i = 0; i < CANDIDATE_NUMBER_TO_GENERATE; i++) {
             CandidateEntity candidateEntity = new CandidateEntity();
@@ -152,5 +157,14 @@ public class Dataloader implements ApplicationRunner {
 
     public List<LanguageEntity> deleteLanguageFromList(List<LanguageEntity> languages, String language){
         return languages.stream().filter(languageEntity -> !languageEntity.getLanguage().equals(language)).toList();
+    }
+
+    public void createAdminUser() {
+        UserEntity admin = new UserEntity();
+        admin.setRole("Admin");
+        admin.setUsername("admin");
+        admin.setPassword("admin");
+
+        userRepository.save(admin);
     }
 }
