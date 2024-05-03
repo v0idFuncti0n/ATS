@@ -14,6 +14,12 @@ spring:
     name: 'ats-gateway-service'
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
       routes:
         - id: ats-masterdata-service
           uri: lb://ats-masterdata-service
@@ -66,6 +72,12 @@ spring:
     web-application-type: reactive
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
       routes:
         - id: api
           uri: lb://ats-masterdata-service

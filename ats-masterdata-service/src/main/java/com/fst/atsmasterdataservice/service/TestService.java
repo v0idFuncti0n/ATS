@@ -89,7 +89,10 @@ public class TestService {
         List<CandidateEntity> candidateEntitiesFilteredByInPoolStatus = candidateEntities.stream().filter(candidateEntity -> candidateEntity.getStatus().equals(CandidateStatus.IN_POOL)).toList();
         // System.out.println("total candidates: " + candidateEntitiesFilteredByInPoolStatus.size());
 
-        List<CandidateEntity> candidateEntitiesFilteredBySkill = candidateEntitiesFilteredByInPoolStatus.stream().filter(candidateEntity -> candidateEntity.hasSkill(bootcamp.getSkillRequired())).toList();
+        List<CandidateEntity> candidateEntitiesFilteredByIsVerifiedStatus = candidateEntitiesFilteredByInPoolStatus.stream().filter(CandidateEntity::isVerified).toList();
+        // System.out.println("total candidates: " + candidateEntitiesFilteredByIsVerifiedStatus.size());
+
+        List<CandidateEntity> candidateEntitiesFilteredBySkill = candidateEntitiesFilteredByIsVerifiedStatus.stream().filter(candidateEntity -> candidateEntity.hasSkill(bootcamp.getSkillRequired())).toList();
         // System.out.println("total candidates: " + candidateEntitiesFilteredBySkill.size());
 
         List<CandidateEntity> candidateEntitiesFilteredByLanguage = candidateEntitiesFilteredBySkill.stream().filter(candidateEntity -> candidateEntity.hasLanguage(bootcamp.getLanguageRequired(), bootcamp.getLanguageLevelRequired())).toList();
