@@ -9,9 +9,6 @@ import org.mapstruct.Mappings;
 @Mapper(componentModel = "spring")
 public interface TestMapper {
 
-    @Mappings({
-            @Mapping(target = "version", ignore = true)
-    })
     TestEntity dtoToEntity(TestDTO dto);
 
     TestDTO entityToDTO(TestEntity entity);

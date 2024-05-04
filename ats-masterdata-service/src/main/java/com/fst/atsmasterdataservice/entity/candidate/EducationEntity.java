@@ -9,10 +9,6 @@ public class EducationEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-
-    @Version
-    private int version;
-
     private String education;
     private String institute;
     private String duration;
@@ -28,14 +24,6 @@ public class EducationEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public String getEducation() {

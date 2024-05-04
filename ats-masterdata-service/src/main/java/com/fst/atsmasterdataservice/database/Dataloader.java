@@ -59,7 +59,7 @@ public class Dataloader implements ApplicationRunner {
             candidateEntity.setFirstName(this.faker.name().firstName());
             candidateEntity.setLastName(this.faker.name().lastName());
             candidateEntity.setStatus(CandidateStatus.IN_POOL);
-            candidateEntity.setVerified(false);
+            candidateEntity.setVerified(true);
             candidateEntity.setBirthDate(this.faker.regexify("(0[1-9]|[12][0-9]|3[01])\\/(0[1-9]|1[1-2])\\/(199|200)\\d{1}"));
             candidateEntity.setEmail(candidateEntity.getFirstName() + "." + candidateEntity.getLastName() + "@gmail.com");
             candidateEntity.setLocation(this.faker.address().streetAddress());

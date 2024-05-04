@@ -110,7 +110,13 @@ public class CandidateService {
             skillEntity.setCandidate(candidateVerified);
         });
 
-        return candidateMapper.entityToDTO(candidateRepository.save(candidateVerified));
+        CandidateEntity candidateEntityToSave = candidateRepository.save(candidateVerified);
+//        skillRepository.saveAll(candidateEntityToSave.getSkills());
+//        workExperienceRepository.saveAll(candidateEntityToSave.getWorkExperiences());
+//        languageRepository.saveAll(candidateEntityToSave.getLanguages());
+//        educationRepository.saveAll(candidateEntityToSave.getEducations());
+
+        return candidateMapper.entityToDTO(candidateEntityToSave);
     }
 
     public CandidateDTO getCandidateById(Long id) {

@@ -11,9 +11,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CandidateMapper {
 
-    @Mappings({
-            @Mapping(target = "version", ignore = true)
-    })
     CandidateEntity dtoToEntity(CandidateDTO dto);
 
     CandidateDTO entityToDTO(CandidateEntity entity);

@@ -11,10 +11,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface BootcampMapper {
 
-    @Mappings({
-            @Mapping(target = "id", ignore = true),
-            @Mapping(target = "version", ignore = true)
-    })
     BootcampEntity dtoToEntity(BootcampDTO dto);
 
     BootcampDTO entityToDTO(BootcampEntity entity);

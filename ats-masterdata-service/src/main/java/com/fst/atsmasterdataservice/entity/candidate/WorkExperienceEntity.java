@@ -10,9 +10,6 @@ public class WorkExperienceEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Version
-    private int version;
-
     private String jobTitle;
     private String company;
     private String location;
@@ -29,14 +26,6 @@ public class WorkExperienceEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public String getJobTitle() {

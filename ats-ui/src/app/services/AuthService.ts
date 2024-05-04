@@ -1,8 +1,8 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {AuthAPI} from "../api/AuthAPI";
 import {User} from "../models/User";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {API} from "../api/API";
 
 @Injectable()
 export class AuthService {
@@ -14,7 +14,13 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<User>(AuthAPI.AUTHENTICATE, {username, password})
+    return this.http.post<User>(API.AUTHENTICATE, {username, password})
+  }
+
+  logout() {
+    localStorage.removeItem('username');
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
   }
 
   static tokenGetter() {

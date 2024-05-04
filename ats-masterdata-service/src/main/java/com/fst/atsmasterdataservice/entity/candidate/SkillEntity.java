@@ -11,9 +11,6 @@ public class SkillEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Version
-    private int version;
-
     private String skill;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
@@ -26,14 +23,6 @@ public class SkillEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public String getSkill() {
@@ -56,7 +45,6 @@ public class SkillEntity {
     public String toString() {
         return "SkillEntity{" +
                 "id=" + id +
-                ", version=" + version +
                 ", skill='" + skill + '\'' +
                 ", candidate=" + candidate.getId() +
                 '}';

@@ -17,9 +17,6 @@ public class CandidateEntity {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Version
-    private int version;
-
     private String firstName;
     private String lastName;
     private String email;
@@ -52,14 +49,6 @@ public class CandidateEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public int getVersion() {
-        return version;
-    }
-
-    public void setVersion(int version) {
-        this.version = version;
     }
 
     public String getFirstName() {
@@ -178,7 +167,6 @@ public class CandidateEntity {
     public String toString() {
         return "CandidateEntity{" +
                 "id=" + id +
-                ", version=" + version +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

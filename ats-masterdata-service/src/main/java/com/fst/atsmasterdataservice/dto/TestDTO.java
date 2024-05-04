@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class TestDTO {
 
+    private Long id;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -14,6 +15,14 @@ public class TestDTO {
     private int candidateNumber;
 
     private TestStatus status;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Date getStartDate() {
         return startDate;
