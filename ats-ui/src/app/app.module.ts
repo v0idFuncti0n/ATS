@@ -11,19 +11,23 @@ import {AuthService} from "./services/AuthService";
 import {JwtModule} from "@auth0/angular-jwt";
 import {HttpClientModule} from "@angular/common/http";
 import {AuthGuardService} from "./guard/AuthGuardService";
+import {DataTablesModule} from "angular-datatables";
+import { ModalComponent } from './components/layout/modal/modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     LayoutComponent,
-    BootcampComponent
+    BootcampComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    DataTablesModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: AuthService.tokenGetter

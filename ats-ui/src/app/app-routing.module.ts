@@ -6,10 +6,10 @@ import {BootcampComponent} from "./components/layout/bootcamp/bootcamp.component
 import {AuthGuardService} from "./guard/AuthGuardService";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'layout', pathMatch: "full"},
+  {path: '', redirectTo: 'dashboard', pathMatch: "full"},
   {path: 'login', component: LoginComponent},
   {
-    path: 'layout', component: LayoutComponent, canActivate: [AuthGuardService], children: [
+    path: 'dashboard', component: LayoutComponent, canActivate: [AuthGuardService], children: [
       {path: 'bootcamp', component: BootcampComponent}
     ]
   }

@@ -1,67 +1,42 @@
-import { Component } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Bootcamp} from "../../../models/Bootcamp";
 import {BootcampService} from "../../../services/BootcampService";
-import {CandidateService} from "../../../services/CandidateService";
-import {Candidate} from "../../../models/candidate/Candidate";
-import {TestService} from "../../../services/TestService";
+import {Config} from "datatables.net";
+import {ModalComponent, ModalConfig} from "../modal/modal.component";
 
 @Component({
   selector: 'app-bootcamp',
   templateUrl: './bootcamp.component.html',
   styleUrls: ['./bootcamp.component.css']
 })
-export class BootcampComponent {
-  bootcamps: Bootcamp[] = [];
+export class BootcampComponent implements OnInit {
+  @ViewChild('modal') private modalComponent!: ModalComponent
 
-  constructor(bootcampService: BootcampService, cs: CandidateService, ts: TestService) {
+  isLoading = true;
+  isCreateBootcampModalOpen = false;
+  bootcamps: Bootcamp[] = [];
+  dtOptions: Config = {};
+
+  modalConfig: ModalConfig = {
+    modalTitle: "Create Bootcamp"
+  }
+
+  constructor(bootcampService: BootcampService) {
     bootcampService.getAllBootcamps().subscribe((bootcamps) => {
       this.bootcamps = bootcamps;
       console.log(this.bootcamps);
+      this.isLoading = false;
+      console.log(this.isLoading)
     });
-
-    cs.getAllCandidates().subscribe(candidates => {
-      console.log(candidates);
-    })
-    let c: Candidate;
-    cs.getCandidateById(1).subscribe(candidate => {
-      c = candidate;
-      console.log(candidate);
-      c.skills = [
-        {skill: 'Vue.js'},
-        {skill: 'Gaming'}
-      ]
-
-      cs.updateCandidate(c, 1).subscribe(candidate => {
-        console.log(candidate);
-      })
-
-      bootcampService.createBootcamp({
-        "name": "java",
-        "startDate": "2024-04-20",
-        "endDate": "2024-04-21",
-        "candidateNumber": 20,
-        "skillRequired": "java",
-        "languageRequired": "english",
-        "languageLevelRequired": "B1"
-      }).subscribe(bootcamp => {
-        console.log("bootcamp")
-        console.log(bootcamp)
-        ts.createTest({
-          "startDate": "2024-04-20",
-          "endDate": "2024-04-21",
-          "candidateNumber": 100
-        }, bootcamp.id!).subscribe(test => {
-          console.log("test")
-          console.log(test);
-        })
-      })
-    });
-
-
-    cs.getCandidateResumeFile(1).subscribe(resumeFile => {
-      let downloadURL = URL.createObjectURL(resumeFile);
-      console.log(resumeFile);
-    })
   }
 
+  ngOnInit(): void {
+    this.dtOptions = {
+      pagingType: 'full_numbers'
+    };
+  }
+
+  async openModal() {
+    return await this.modalComponent.open()
+  }
 }
