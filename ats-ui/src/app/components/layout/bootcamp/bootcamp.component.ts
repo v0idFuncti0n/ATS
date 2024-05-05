@@ -13,12 +13,15 @@ export class BootcampComponent implements OnInit {
   @ViewChild('modal') private modalComponent!: ModalComponent
 
   isLoading = true;
-  isCreateBootcampModalOpen = false;
   bootcamps: Bootcamp[] = [];
-  dtOptions: Config = {};
+  dtOptions: Config = {
+    order: [[0, 'desc']]
+  };
 
   modalConfig: ModalConfig = {
-    modalTitle: "Create Bootcamp"
+    modalTitle: "Create Bootcamp",
+    closeButtonLabel: "Save Bootcamp",
+    dismissButtonLabel: "Close"
   }
 
   constructor(bootcampService: BootcampService) {
@@ -37,6 +40,6 @@ export class BootcampComponent implements OnInit {
   }
 
   async openModal() {
-    return await this.modalComponent.open()
+    return await this.modalComponent.open({ centered: true })
   }
 }

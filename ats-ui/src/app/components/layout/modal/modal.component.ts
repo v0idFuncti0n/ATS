@@ -1,5 +1,6 @@
 import {Component, Input, TemplateRef, ViewChild} from '@angular/core';
 import {NgbModal, NgbModalRef} from "@ng-bootstrap/ng-bootstrap";
+import {NgbModalOptions} from "@ng-bootstrap/ng-bootstrap/modal/modal-config";
 
 export interface ModalConfig {
   modalTitle: string
@@ -29,9 +30,9 @@ export class ModalComponent {
 
   ngOnInit(): void { }
 
-  open() {
+  open(modalConfig: NgbModalOptions) {
     return new Promise<boolean>(resolve => {
-      this.modalRef = this.modalService.open(this.modalContent)
+      this.modalRef = this.modalService.open(this.modalContent, modalConfig)
       this.modalRef.result.then(resolve, resolve)
     })
   }
