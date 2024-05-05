@@ -41,5 +41,48 @@
 </div>
 
 <app-modal #modal [modalConfig]="modalConfig">
-  <div></div>
+  <form [formGroup]="bootcampForm">
+    <div class="mb-3 row">
+      <label for="name" class="col-sm-3 col-form-label">Name:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="name" formControlName="name">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="startDate" class="col-sm-3 col-form-label">Start Date:</label>
+      <div class="col-sm-9">
+        <input type="date" class="form-control" formControlName="startDate" id="startDate">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="endDate" class="col-sm-3 col-form-label">End Date:</label>
+      <div class="col-sm-9">
+        <input type="date" class="form-control" formControlName="endDate" id="endDate">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="candidateNumber" class="col-sm-3 col-form-label">Candidate Number:</label>
+      <div class="col-sm-9">
+        <input type="number" class="form-control" formControlName="candidateNumber" id="candidateNumber">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="skillRequired" class="col-sm-3 col-form-label">Skill Required:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="skillRequired" formControlName="skillRequired">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="languageRequired" class="col-sm-3 col-form-label">Language Required:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="languageRequired" formControlName="languageRequired">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="languageLevelRequired" class="col-sm-3 col-form-label">Language Level Required:</label>
+      <div class="col-sm-9">
+        <input type="text" class="form-control" id="languageLevelRequired" formControlName="languageLevelRequired">
+      </div>
+    </div>
+  </form>
 </app-modal>
