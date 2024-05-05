@@ -39,6 +39,7 @@ export class BootcampComponent implements OnInit {
 
     bootcampService.getAllBootcamps().subscribe((bootcamps) => {
       this.bootcamps = bootcamps;
+      console.log(bootcamps)
       this.isLoading = false;
     });
   }

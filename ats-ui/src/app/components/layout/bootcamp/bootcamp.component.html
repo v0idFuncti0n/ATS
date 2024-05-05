@@ -33,7 +33,10 @@
         <td>{{bootcamp.skillRequired}}</td>
         <td>{{bootcamp.languageRequired}}</td>
         <td>{{bootcamp.languageLevelRequired}}</td>
-        <td></td>
+        <td>
+          <button *ngIf="bootcamp.test === null" class="btn btn-primary">Create Test</button>
+          <button *ngIf="bootcamp.test !== null" class="btn btn-success">Test</button>
+        </td>
       </tr>
       </tbody>
     </table>
