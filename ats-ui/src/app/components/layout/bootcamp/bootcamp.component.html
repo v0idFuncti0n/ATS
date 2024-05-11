@@ -1,6 +1,6 @@
 <div class="mb-5 d-flex justify-content-between">
   <h4>Bootcamps</h4>
-  <button class="btn btn-primary" (click)="openModal()">Create Bootcamp</button>
+  <button class="btn btn-primary" (click)="openBootcampModal()">Create Bootcamp</button>
 </div>
 <div class="w-100 h-75 d-flex justify-content-center" *ngIf="isLoading">
   <div class="spinner-border align-self-center" role="status" >
@@ -34,8 +34,8 @@
         <td>{{bootcamp.languageRequired}}</td>
         <td>{{bootcamp.languageLevelRequired}}</td>
         <td>
-          <button *ngIf="bootcamp.test === null" class="btn btn-primary">Create Test</button>
-          <button *ngIf="bootcamp.test !== null" class="btn btn-success">Test</button>
+          <button *ngIf="bootcamp.test === null" class="btn btn-primary" (click)="openTestModal(bootcamp.id)">Create Test</button>
+          <button *ngIf="bootcamp.test !== null" class="btn btn-success" (click)="goToTest(bootcamp.test.id)">Go To Test</button>
         </td>
       </tr>
       </tbody>
@@ -43,7 +43,7 @@
   </div>
 </div>
 
-<app-modal #modal [modalConfig]="modalConfig">
+<app-modal #bootcampModal [modalConfig]="bootcampModalConfig">
   <form [formGroup]="bootcampForm">
     <div class="mb-3 row">
       <label for="name" class="col-sm-3 col-form-label">Name:</label>
@@ -85,6 +85,29 @@
       <label for="languageLevelRequired" class="col-sm-3 col-form-label">Language Level Required:</label>
       <div class="col-sm-9">
         <input type="text" class="form-control" id="languageLevelRequired" formControlName="languageLevelRequired">
+      </div>
+    </div>
+  </form>
+</app-modal>
+
+<app-modal #testModal [modalConfig]="testModalConfig">
+  <form [formGroup]="testForm">
+    <div class="mb-3 row">
+      <label for="startDate" class="col-sm-3 col-form-label">Start Date:</label>
+      <div class="col-sm-9">
+        <input type="date" class="form-control" formControlName="startDate">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="endDate" class="col-sm-3 col-form-label">End Date:</label>
+      <div class="col-sm-9">
+        <input type="date" class="form-control" formControlName="endDate">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="candidateNumber" class="col-sm-3 col-form-label">Candidate Number:</label>
+      <div class="col-sm-9">
+        <input type="number" class="form-control" formControlName="candidateNumber">
       </div>
     </div>
   </form>

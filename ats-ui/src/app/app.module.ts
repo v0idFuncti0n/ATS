@@ -15,6 +15,7 @@ import {DataTablesModule} from "angular-datatables";
 import { ModalComponent } from './components/layout/modal/modal.component';
 import { CandidateComponent } from './components/layout/candidate/candidate.component';
 import { TestComponent } from './components/layout/test/test.component';
+import { TestInfoComponent } from './components/layout/test-info/test-info.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TestComponent } from './components/layout/test/test.component';
     BootcampComponent,
     ModalComponent,
     CandidateComponent,
-    TestComponent
+    TestComponent,
+    TestInfoComponent
   ],
   imports: [
     BrowserModule,

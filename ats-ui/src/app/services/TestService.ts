@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Test} from "../models/Test";
 import {API} from "../api/API";
 import {Candidate} from "../models/candidate/Candidate";
+import {TestInfo} from "../models/TestInfo";
 
 @Injectable({
   providedIn: "root"
@@ -24,5 +25,9 @@ export class TestService {
 
   public getAllTests() {
     return this.http.get<Test[]>(API.TEST);
+  }
+
+  getTestById(testId: number) {
+    return this.http.get<Test>(API.TEST + '/' + testId);
   }
 }

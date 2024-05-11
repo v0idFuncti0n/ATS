@@ -1,0 +1,96 @@
+<div class="mb-5 d-flex justify-content-between">
+  <h4>Test Informations</h4>
+  <div>
+    <button *ngIf="currentTest?.status === 'IN_COMMUNICATION_WITH_CANDIDATES'" class="btn btn-success" (click)="confirmCandidateList(currentTest?.id)">Confirm Candidate List</button>
+    <button *ngIf="currentTest?.status === 'IN_TESTING'" class="btn btn-success" (click)="completeTest(currentTest?.id)">Complete Test</button>
+    <span *ngIf="currentTest?.status === 'COMPLETED'" class="badge bg-success">Test Completed</span>
+  </div>
+</div>
+<div class="w-100 h-75 d-flex justify-content-center" *ngIf="isLoading">
+  <div class="spinner-border align-self-center" role="status" >
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div *ngIf="currentTest?.status === 'IN_COMMUNICATION_WITH_CANDIDATES'">
+  <div *ngIf="!isLoading">
+    <table datatable [dtOptions]="dtOptionsICWC" class="table row-border hover">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Candidate First Name</th>
+        <th>Candidate Last Name</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let testInfo of testInfos">
+        <td>{{testInfo.id}}</td>
+        <td>{{testInfo.candidate?.firstName}}</td>
+        <td>{{testInfo.candidate?.lastName}}</td>
+        <td>{{testInfo.candidate?.phoneNumber}}</td>
+        <td>{{testInfo.candidate?.email}}</td>
+        <td>
+          <button class="btn btn-danger" (click)="refuseCandidate(testInfo.candidate)">Refuse Candidate</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<div *ngIf="currentTest?.status !== 'IN_COMMUNICATION_WITH_CANDIDATES'">
+  <div *ngIf="!isLoading">
+    <table datatable [dtOptions]="dtOptionsIT" class="table row-border hover">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Candidate First Name</th>
+        <th>Candidate Last Name</th>
+        <th>Technical Note</th>
+        <th>Interview Note</th>
+        <th>Final Note</th>
+        <th *ngIf="currentTest?.status !== 'COMPLETED'">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let testInfo of testInfos">
+        <td>{{testInfo.id}}</td>
+        <td>{{testInfo.candidate?.firstName}}</td>
+        <td>{{testInfo.candidate?.lastName}}</td>
+        <td>{{testInfo.technicalNote}}</td>
+        <td>{{testInfo.interviewNote}}</td>
+        <td>{{testInfo.finalNote}}</td>
+        <td *ngIf="currentTest?.status !== 'COMPLETED'">
+          <button class="btn btn-primary" (click)="openTestInfoModal(testInfo.id!, testInfo.candidate!)">Update Notes</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-modal #testInfoModal [modalConfig]="testInfoModalConfig">
+  <form [formGroup]="testInfoForm">
+    <div class="mb-3 row">
+      <label class="col-sm-3 col-form-label">Name:</label>
+      <div class="col-sm-9">
+        {{currentSelectedCandidate?.firstName + " " + currentSelectedCandidate?.lastName}}
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="technicalNote" class="col-sm-3 col-form-label">Technical Note:</label>
+      <div class="col-sm-9">
+        <input type="number" formControlName="technicalNote" name="technicalNote" id="technicalNote">
+      </div>
+    </div>
+    <div class="mb-3 row">
+      <label for="interviewNote" class="col-sm-3 col-form-label">Interview Note:</label>
+      <div class="col-sm-9">
+        <input type="number" formControlName="interviewNote" name="interviewNote" id="interviewNote">
+      </div>
+    </div>
+  </form>
+</app-modal>

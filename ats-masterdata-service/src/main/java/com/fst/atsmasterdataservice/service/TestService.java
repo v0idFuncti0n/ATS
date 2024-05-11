@@ -172,4 +172,7 @@ public class TestService {
     }
 
 
+    public TestDTO getTestById(Long testId) {
+        return testMapper.entityToDTO(testRepository.findById(testId).get());
+    }
 }

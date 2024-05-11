@@ -13,4 +13,8 @@ export class TestInfoService {
   public updateTestInfo(testInfo: TestInfo, testInfoId: number) {
     return this.http.post<TestInfo>(API.TEST_INFO + '/' + testInfoId, testInfo)
   }
+
+  getTestInfosByTestId(testId: number) {
+    return this.http.get<TestInfo[]>(API.TEST_INFO + '/test/' + testId);
+  }
 }

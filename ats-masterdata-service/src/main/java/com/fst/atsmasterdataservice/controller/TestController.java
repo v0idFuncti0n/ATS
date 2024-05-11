@@ -45,5 +45,9 @@ public class TestController {
         return ResponseEntity.ok(tests);
     }
 
-
+    @GetMapping(path = "/tests/{testId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TestDTO> getTest(@PathVariable Long testId) {
+        TestDTO testDTO = testService.getTestById(testId);
+        return ResponseEntity.ok(testDTO);
+    }
 }

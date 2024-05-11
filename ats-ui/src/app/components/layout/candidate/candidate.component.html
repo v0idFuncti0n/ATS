@@ -16,6 +16,9 @@
         <th>Last Name</th>
         <th>Email</th>
         <th>Phone Number</th>
+        <th>Verified</th>
+        <th>Bootcamp ID</th>
+        <th>Status</th>
         <th>Action</th>
       </tr>
       </thead>
@@ -27,7 +30,13 @@
         <td>{{candidate.email}}</td>
         <td>{{candidate.phoneNumber}}</td>
         <td>
-          <button class="btn btn-primary">Action button</button>
+          <span *ngIf="candidate.verified" class="badge bg-success">Verified</span>
+          <span *ngIf="!candidate.verified" class="badge bg-danger">Not verified</span>
+        </td>
+        <td>{{candidate.bootcampId}}</td>
+        <td>{{candidate.status}}</td>
+        <td>
+          <button [disabled]="candidate.verified" class="btn btn-primary" (click)="openModalVerifyCandidate()">Verify</button>
         </td>
       </tr>
       </tbody>
@@ -35,4 +44,7 @@
   </div>
 </div>
 
-
+<app-modal #candidateModal [modalConfig]="candidateModalConfig">
+  <form [formGroup]="candidateForm">
+  </form>
+</app-modal>

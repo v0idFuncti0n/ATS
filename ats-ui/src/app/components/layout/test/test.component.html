@@ -27,13 +27,10 @@
         <td>{{test.candidateNumber}}</td>
         <td>{{test.status}}</td>
         <td>
-          <button class="btn btn-primary">Action button</button>
+          <button class="btn btn-primary" (click)="goToTestInfo(test.id)">Test Info</button>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
-
-
-

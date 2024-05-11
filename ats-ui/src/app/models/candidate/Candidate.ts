@@ -13,13 +13,15 @@ export class Candidate {
   birthDate: string;
   verified: boolean;
   resumeFilename: string;
+  bootcampId: number;
+  status: "IN_POOL" | "IN_TEST" | "IN_BOOTCAMP";
   workExperiences: WorkExperience[];
   educations: Education[];
   skills: Skill[];
   languages: Language[];
 
 
-  constructor(id: number, firstName: string, lastName: string, email: string, phoneNumber: string, location: string, birthDate: string, verified: boolean, resumeFilename: string, workExperiences: WorkExperience[], educations: Education[], skills: Skill[], languages: Language[]) {
+  constructor(id: number, firstName: string, lastName: string, email: string, phoneNumber: string, location: string, birthDate: string, verified: boolean,  bootcampId: number, status: "IN_POOL" | "IN_TEST" | "IN_BOOTCAMP", resumeFilename: string, workExperiences: WorkExperience[], educations: Education[], skills: Skill[], languages: Language[]) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -28,6 +30,8 @@ export class Candidate {
     this.location = location;
     this.birthDate = birthDate;
     this.verified = verified;
+    this.bootcampId = bootcampId;
+    this.status = status;
     this.resumeFilename = resumeFilename;
     this.workExperiences = workExperiences;
     this.educations = educations;
