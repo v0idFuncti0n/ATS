@@ -64,4 +64,9 @@ public class TestInfoService {
         List<TestInfoEntity> testInfoEntities = testInfoRepository.findByTestOrderByFinalNoteDescIdAsc(test);
         return testInfoEntities.stream().limit(test.getBootcamp().getCandidateNumber()).toList();
     }
+
+    public List<TestInfoDTO> getTestInfoByTestId(Long id) {
+        TestEntity test = testRepository.findById(id).get();
+        return testInfoMapper.listEntityToDTO(test.getTestInfoList());
+    }
 }

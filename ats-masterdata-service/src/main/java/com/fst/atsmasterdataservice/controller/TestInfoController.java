@@ -1,14 +1,15 @@
 package com.fst.atsmasterdataservice.controller;
 
+import com.fst.atsmasterdataservice.dto.TestDTO;
 import com.fst.atsmasterdataservice.dto.TestInfoDTO;
 import com.fst.atsmasterdataservice.service.TestInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class TestInfoController {
@@ -24,5 +25,11 @@ public class TestInfoController {
     public ResponseEntity<TestInfoDTO> updateTestInfo(@RequestBody TestInfoDTO testInfoDTO, @PathVariable Long testInfoId) {
         TestInfoDTO testInfo = testInfoService.updateTestInfo(testInfoDTO, testInfoId);
         return ResponseEntity.ok(testInfo);
+    }
+
+    @GetMapping(path = "/testInfo/test/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TestInfoDTO>> getTestInfoByTestId(@PathVariable("id") Long id) throws IOException {
+        List<TestInfoDTO> testInfos = testInfoService.getTestInfoByTestId(id);
+        return ResponseEntity.ok(testInfos);
     }
 }

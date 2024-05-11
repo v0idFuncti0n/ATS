@@ -198,6 +198,7 @@ a {
 
 .user_nav_link:hover {
   color: black !important;
+  cursor: default;
 }
 
 .logout_nav_link {

@@ -44,4 +44,6 @@ public class TestController {
         List<TestDTO> tests = testService.getTests();
         return ResponseEntity.ok(tests);
     }
+
+
 }
