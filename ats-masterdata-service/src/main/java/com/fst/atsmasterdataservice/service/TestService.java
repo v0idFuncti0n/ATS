@@ -165,4 +165,9 @@ public class TestService {
 
         return testMapper.entityToDTO(testEntity);
     }
+
+    public List<TestDTO> getTests() {
+        List<TestEntity> tests = testRepository.findAll();
+        return testMapper.listEntityToDTO(tests);
+    }
 }
