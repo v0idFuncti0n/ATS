@@ -1,5 +1,7 @@
 package com.fst.atsmasterdataservice.dto;
 
+import com.fst.atsmasterdataservice.dto.candidate.CandidateDTO;
+
 public class TestInfoDTO {
 
     private Long id;
@@ -7,6 +9,8 @@ public class TestInfoDTO {
     private float interviewNote;
 
     private float finalNote;
+
+    private CandidateDTO candidate;
 
     public float getTechnicalNote() {
         return technicalNote;
@@ -39,4 +43,12 @@ public class TestInfoDTO {
     public void setFinalNote(float finalNote) {
         this.finalNote = finalNote;
     }
+    public CandidateDTO getCandidate() {
+        return candidate;
+    }
+
+    public void setCandidate(CandidateDTO candidate) {
+        this.candidate = candidate;
+    }
+
 }
