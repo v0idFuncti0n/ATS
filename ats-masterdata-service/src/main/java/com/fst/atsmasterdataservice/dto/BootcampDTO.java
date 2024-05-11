@@ -18,6 +18,8 @@ public class BootcampDTO {
 
     private String languageLevelRequired;
 
+    private TestDTO test;
+
     public Long getId() {
         return id;
     }
@@ -80,5 +82,13 @@ public class BootcampDTO {
 
     public void setLanguageLevelRequired(String languageLevelRequired) {
         this.languageLevelRequired = languageLevelRequired;
+    }
+
+    public TestDTO getTest() {
+        return test;
+    }
+
+    public void setTest(TestDTO test) {
+        this.test = test;
     }
 }
