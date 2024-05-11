@@ -8,7 +8,7 @@ export class API {
 
   public static CANDIDATES: string = API.HOST + "candidates";
 
-  public static TEST: string = API.HOST + "test";
+  public static TEST: string = API.HOST + "tests";
 
   public static TEST_INFO = API.HOST + "testInfo"
 }

@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Test} from "../models/Test";
 import {API} from "../api/API";
+import {Candidate} from "../models/candidate/Candidate";
 
 @Injectable({
   providedIn: "root"
@@ -19,5 +20,9 @@ export class TestService {
 
   public changeTestStatusToTestCompleted(testId: number) {
     return this.http.post<Test>(API.TEST + '/' + testId + '/completeTest', {});
+  }
+
+  public getAllTests() {
+    return this.http.get<Test[]>(API.TEST);
   }
 }

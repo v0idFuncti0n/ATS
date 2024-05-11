@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {Config} from "datatables.net";;
+import {Config} from "datatables.net";
 import {Candidate} from "../../../models/candidate/Candidate";
 import {CandidateService} from "../../../services/CandidateService";
 
