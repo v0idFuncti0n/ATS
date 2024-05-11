@@ -190,7 +190,25 @@ a {
 
 .user_nav_link {
   position: relative;
-  color: var(--first-color-light);
+  color: black;
   margin-bottom: 0rem !important;
-  transition: .3s
+  transition: .3s;
+  padding: 0.5rem 1.5rem .5rem 1.5rem !important;
+}
+
+.user_nav_link:hover {
+  color: black !important;
+}
+
+.logout_nav_link {
+  position: relative;
+  color: black;
+  margin-bottom: 0rem !important;
+  transition: .3s ;
+  padding: 0.5rem 1.5rem .5rem 1.5rem !important;
+}
+
+.logout_nav_link:hover {
+  color: #dc3545;
+;
 }

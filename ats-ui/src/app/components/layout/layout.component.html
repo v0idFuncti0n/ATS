@@ -6,10 +6,10 @@
       <a class="nav-link bx bxs-user-circle profile_icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       </a>
       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a href="#" class="user_nav_link nav_link"> <i class='bx bxs-user-detail nav_icon'></i> <span class="nav_name">User</span> </a>
+        <a href="#" class="user_nav_link nav_link"> <i class='bx bxs-user-detail nav_icon'></i> <span class="nav_name">Username</span> </a>
         <a href="#" class="user_nav_link nav_link"> <i class='bx bx-cog nav_icon'></i> <span class="nav_name">Role : Admin</span> </a>
         <hr class="dropdown-divider">
-        <a href="#" class="user_nav_link nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Log Out</span> </a>
+        <a href="#" class="logout_nav_link nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name">Log Out</span> </a>
       </ul>
     </li>
   </ul>
@@ -21,9 +21,9 @@
     <div><a href="#" class="nav_logo"> <i class='bx bx-buildings nav_logo-icon'></i> <span
       class="nav_logo-name">NTT DATA</span> </a>
       <div class="nav_list">
-        <a href="#" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Candidates</span> </a>
+        <a routerLink="candidate" routerLinkActive="active" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Candidates</span> </a>
         <a routerLink="bootcamp" routerLinkActive="active" class="nav_link"> <i class='bx bx-code-block nav_icon'></i> <span class="nav_name">Bootcamps</span> </a>
-        <a href="#" class="nav_link"> <i class='bx bx-edit-alt nav_icon'></i> <span class="nav_name">Tests</span> </a>
+        <a routerLink="test" routerLinkActive="active" class="nav_link"> <i class='bx bx-edit-alt nav_icon'></i> <span class="nav_name">Tests</span> </a>
       </div>
     </div>
   </div>

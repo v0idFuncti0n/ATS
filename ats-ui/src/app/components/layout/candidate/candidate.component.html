@@ -1,0 +1,38 @@
+<div class="mb-5 d-flex justify-content-between">
+  <h4>Candidates</h4>
+</div>
+<div class="w-100 h-75 d-flex justify-content-center" *ngIf="isLoading">
+  <div class="spinner-border align-self-center" role="status" >
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+<div>
+  <div *ngIf="!isLoading">
+    <table datatable [dtOptions]="dtOptions" class="table row-border hover">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let candidate of candidates">
+        <td>{{candidate.id}}</td>
+        <td>{{candidate.firstName}}</td>
+        <td>{{candidate.lastName}}</td>
+        <td>{{candidate.email}}</td>
+        <td>{{candidate.phoneNumber}}</td>
+        <td>
+          <button class="btn btn-primary">Action button</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+

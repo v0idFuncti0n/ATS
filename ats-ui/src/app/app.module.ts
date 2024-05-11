@@ -13,6 +13,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {AuthGuardService} from "./guard/AuthGuardService";
 import {DataTablesModule} from "angular-datatables";
 import { ModalComponent } from './components/layout/modal/modal.component';
+import { CandidateComponent } from './components/layout/candidate/candidate.component';
+import { TestComponent } from './components/layout/test/test.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { ModalComponent } from './components/layout/modal/modal.component';
     LoginComponent,
     LayoutComponent,
     BootcampComponent,
-    ModalComponent
+    ModalComponent,
+    CandidateComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
