@@ -30,12 +30,33 @@ export class CandidateComponent implements OnInit {
 
   constructor(private candidateService: CandidateService, private form: FormBuilder) {
     this.candidateForm = this.form.group({
-      skills: this.form.array([])
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', Validators.required],
+      phoneNumber: ['', Validators.required],
+      location: ['', Validators.required],
+      birthDate: ['', Validators.required],
+      skills: this.form.array([]),
+      workExperiences: this.form.array([]),
+      languages: this.form.array([]),
+      educations: this.form.array([])
     })
   }
 
   get candidateSkills() {
     return this.candidateForm.get("skills") as FormArray;
+  }
+
+  get candidateWorkExperiences() {
+    return this.candidateForm.get("workExperiences") as FormArray;
+  }
+
+  get candidateLanguages() {
+    return this.candidateForm.get("languages") as FormArray;
+  }
+
+  get candidateEducations() {
+    return this.candidateForm.get("educations") as FormArray;
   }
 
   ngOnInit(): void {
@@ -72,6 +93,15 @@ export class CandidateComponent implements OnInit {
       this.candidateSkills.push(skillForm);
     })
 
+    this.currentCandidateToVerify.languages.forEach(language => {
+      const languageForm = this.form.group({
+        language: [language.language,Validators.required],
+        level: [language.level,Validators.required]
+      });
+      this.candidateLanguages.push(languageForm);
+      console.log(languageForm)
+    })
+
     this.candidateService.getCandidateResumeFile(candidate.id!).subscribe(data => {
       let blob = new Blob([data], {type: 'application/pdf'});
       this.pdfToDisplayURL = window.URL.createObjectURL(blob);
@@ -100,6 +130,47 @@ export class CandidateComponent implements OnInit {
 
   deleteSkillFormControl(index: number) {
     this.candidateSkills.removeAt(index);
+  }
+
+  addWorkExperienceFormControl() {
+    const workExperienceForm = this.form.group({
+      jobTitle: ['',Validators.required],
+      company: ['',Validators.required],
+      location: ['',Validators.required],
+      duration: ['',Validators.required],
+      jobSummary: ['',Validators.required],
+    });
+    this.candidateWorkExperiences.push(workExperienceForm);
+  }
+
+  deleteWorkExperienceFormControl(index: number) {
+    this.candidateWorkExperiences.removeAt(index);
+  }
+
+  addLanguageFormControl() {
+    const languageForm = this.form.group({
+      language: ['',Validators.required],
+      level: ['',Validators.required]
+    });
+    this.candidateLanguages.push(languageForm);
+  }
+
+  deleteLanguageFormControl(index: number) {
+    this.candidateLanguages.removeAt(index);
+  }
+
+  addEducationFormControl() {
+    const educationForm = this.form.group({
+      education: ['',Validators.required],
+      institute: ['',Validators.required],
+      duration: ['',Validators.required],
+      location: ['',Validators.required]
+    });
+    this.candidateEducations.push(educationForm);
+  }
+
+  deleteEducationFormControl(index: number) {
+    this.candidateEducations.removeAt(index);
   }
 
 }
