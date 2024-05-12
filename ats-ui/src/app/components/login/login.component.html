@@ -1,18 +1,25 @@
-<form [formGroup]="form">
-  <fieldset>
-    <legend>Login</legend>
-    <div class="form-field">
-      <label>username:</label>
-      <input name="username" formControlName="username">
+<form [formGroup]="form" class="split right" (ngSubmit)="login()">
+    <legend style="margin-left: 13em;">Login</legend>
+    <div class="form-group">
+      <label>Username:</label>
+      <input  class="form-control"
+             placeholder="Enter your user name" formControlName="username" name="username" >
+      <div *ngIf="form.get('username')!.invalid&& (form.get('username')!.dirty || form.get('username')!.touched)">
+      </div>
     </div>
-    <div class="form-field">
-      <label>Password:</label>
-      <input name="password" formControlName="password"
-             type="password">
+    <br>
+    <div class="form-group">
+      <label>Password: </label>
+      <input type="password" class="form-control"
+             placeholder="Enter password"  name="password" formControlName="password">
     </div>
-  </fieldset>
-  <div class="form-buttons">
-    <button class="button button-primary"
-            (click)="login()">Login</button>
+  <div class="form-buttons ">
+    <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg"
+            type="submit" [disabled]="form.invalid" style="margin-top: 1em; margin-left: 15em;">Login</button>
   </div>
 </form>
+
+<div class="split left">
+  <img class="img-responsive" src="assets/ATSIcon.png">
+</div>
+
