@@ -102,6 +102,29 @@ export class CandidateComponent implements OnInit {
       console.log(languageForm)
     })
 
+    this.currentCandidateToVerify.workExperiences.forEach(workExperience => {
+      const workExperienceForm = this.form.group({
+        jobTitle: [workExperience.jobTitle,Validators.required],
+        company: [workExperience.company,Validators.required],
+        location: [workExperience.location,Validators.required],
+        duration: [workExperience.duration,Validators.required],
+        jobSummary: [workExperience.jobSummary,Validators.required]
+      });
+      this.candidateWorkExperiences.push(workExperienceForm);
+      console.log(workExperienceForm)
+    })
+
+    this.currentCandidateToVerify.educations.forEach(education => {
+      const educationForm = this.form.group({
+        education: [education.education,Validators.required],
+        institute: [education.institute,Validators.required],
+        duration: [education.duration,Validators.required],
+        location: [education.location,Validators.required]
+      });
+      this.candidateEducations.push(educationForm);
+      console.log(educationForm)
+    })
+
     this.candidateService.getCandidateResumeFile(candidate.id!).subscribe(data => {
       let blob = new Blob([data], {type: 'application/pdf'});
       this.pdfToDisplayURL = window.URL.createObjectURL(blob);
