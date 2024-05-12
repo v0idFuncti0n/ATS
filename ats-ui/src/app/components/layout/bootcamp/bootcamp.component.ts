@@ -79,6 +79,7 @@ export class BootcampComponent implements OnInit {
     let bootcampToSave: Bootcamp = this.bootcampForm.value;
     this.bootcampService.createBootcamp(bootcampToSave).subscribe(response => {
       console.log(response)
+      this.reloadCurrentRoute();
     });
     return true;
   }
@@ -93,11 +94,19 @@ export class BootcampComponent implements OnInit {
     console.log(testToSave);
     this.testService.createTest(testToSave, this.currentSelectedBootcampId!).subscribe(response => {
       console.log(response);
+      this.reloadCurrentRoute();
     });
     return true;
   }
 
   goToTest(testId: number | undefined) {
     this.router.navigate(['/dashboard/test',{testId: testId}]);
+  }
+
+  reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 }

@@ -64,4 +64,11 @@ export class TestComponent implements OnInit {
   goToTestInfo(testId: number | undefined) {
     this.router.navigate(['dashboard/testInfo', testId]);
   }
+
+  reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+  }
 }

@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Config} from "datatables.net";
 import {TestService} from "../../../services/TestService";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {TestInfoService} from "../../../services/TestInfoService";
 import {TestInfo} from "../../../models/TestInfo";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
@@ -39,7 +39,7 @@ export class TestInfoComponent implements OnInit {
 
 
 
-  constructor(private candidateService: CandidateService, private testService: TestService, private testInfoService: TestInfoService, private route: ActivatedRoute, private form: FormBuilder) {
+  constructor(private candidateService: CandidateService, private testService: TestService, private testInfoService: TestInfoService, private route: ActivatedRoute, private form: FormBuilder, private router: Router) {
     this.testInfoForm = this.form.group({
       technicalNote: ['',Validators.required],
       interviewNote: ['',Validators.required]
@@ -100,6 +100,7 @@ export class TestInfoComponent implements OnInit {
     console.log(testInfo)
     this.testInfoService.updateTestInfo(testInfo, this.currentTestInfoId!).subscribe(data => {
       console.log(data)
+      this.reloadCurrentRoute();
     });
     return true;
   }
@@ -107,18 +108,28 @@ export class TestInfoComponent implements OnInit {
   refuseCandidate(candidate: Candidate | undefined) {
     this.candidateService.refuseCandidateInTest(candidate?.id!, this.currentTest?.id!).subscribe(candidate => {
       console.log(candidate);
+      this.reloadCurrentRoute();
     })
   }
 
   confirmCandidateList(id: number | undefined) {
     this.testService.changeTestStatusToInTesting(id!).subscribe(test => {
       console.log(test)
+      this.reloadCurrentRoute();
     })
   }
 
   completeTest(id: number | undefined) {
     this.testService.changeTestStatusToTestCompleted(id!).subscribe(test => {
       console.log(test)
+      this.reloadCurrentRoute();
     })
+  }
+
+  reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 }

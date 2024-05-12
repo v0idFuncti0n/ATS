@@ -4,6 +4,7 @@ import {Candidate} from "../../../models/candidate/Candidate";
 import {CandidateService} from "../../../services/CandidateService";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ModalComponent, ModalConfig} from "../modal/modal.component";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-candidate',
@@ -28,7 +29,7 @@ export class CandidateComponent implements OnInit {
   }
   @ViewChild('candidateModal') private candidateModalComponent!: ModalComponent
 
-  constructor(private candidateService: CandidateService, private form: FormBuilder) {
+  constructor(private candidateService: CandidateService, private form: FormBuilder, private router: Router) {
     this.candidateForm = this.form.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -85,6 +86,9 @@ export class CandidateComponent implements OnInit {
 
   async openModalVerifyCandidate(candidate: Candidate) {
     this.currentCandidateToVerify = candidate;
+    console.log(this.currentCandidateToVerify)
+
+    this.candidateForm.patchValue(this.currentCandidateToVerify);
 
     this.currentCandidateToVerify.skills.forEach(skill => {
       const skillForm = this.form.group({
@@ -133,8 +137,13 @@ export class CandidateComponent implements OnInit {
   }
 
   private verifyCandidate() {
-    this.currentCandidateToVerify = undefined;
-    this.candidateSkills.clear();
+    let candidateToVerify: Candidate = this.candidateForm.value;
+    console.log(candidateToVerify);
+    this.candidateService.updateCandidate(candidateToVerify, this.currentCandidateToVerify!.id!).subscribe(candidate => {
+      this.reloadCurrentRoute();
+      this.currentCandidateToVerify = undefined;
+      this.candidateSkills.clear();
+    });
     return true;
   }
 
@@ -194,6 +203,13 @@ export class CandidateComponent implements OnInit {
 
   deleteEducationFormControl(index: number) {
     this.candidateEducations.removeAt(index);
+  }
+
+  reloadCurrentRoute() {
+    const currentUrl = this.router.url;
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
   }
 
 }
