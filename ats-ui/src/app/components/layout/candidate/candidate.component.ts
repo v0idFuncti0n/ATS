@@ -23,7 +23,8 @@ export class CandidateComponent implements OnInit {
     modalTitle: "Verify Candidate",
     closeButtonLabel: "Verify",
     dismissButtonLabel: "Close",
-    onClose: this.verifyCandidate.bind(this)
+    onClose: this.verifyCandidate.bind(this),
+    onDismiss: this.dismissVerifyCandidate.bind(this)
   }
   @ViewChild('candidateModal') private candidateModalComponent!: ModalComponent
 
@@ -79,10 +80,16 @@ export class CandidateComponent implements OnInit {
   }
 
   private verifyCandidate() {
+    this.currentCandidateToVerify = undefined;
+    this.candidateSkills.clear();
     return true;
   }
 
-
+  private dismissVerifyCandidate() {
+    this.currentCandidateToVerify = undefined;
+    this.candidateSkills.clear();
+    return true;
+  }
 
   addSkillFormControl() {
     const skillForm = this.form.group({
