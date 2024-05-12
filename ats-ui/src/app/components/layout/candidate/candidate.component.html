@@ -36,7 +36,7 @@
         <td>{{candidate.bootcampId}}</td>
         <td>{{candidate.status}}</td>
         <td>
-          <button [disabled]="candidate.verified" class="btn btn-primary" (click)="openModalVerifyCandidate()">Verify</button>
+          <button [disabled]="candidate.verified" class="btn btn-primary" (click)="openModalVerifyCandidate(candidate)">Verify</button>
         </td>
       </tr>
       </tbody>
@@ -46,5 +46,12 @@
 
 <app-modal #candidateModal [modalConfig]="candidateModalConfig">
   <form [formGroup]="candidateForm">
+    <div *ngIf="pdfToDisplayURL !== ''" class="h-100 w-100">
+      <pdf-viewer [src]="pdfToDisplayURL"
+                  [render-text]="true"
+                  [original-size]="false"
+                  style="width: 500px; height: 200px"></pdf-viewer>
+    </div>
+
   </form>
 </app-modal>

@@ -16,6 +16,7 @@ import { ModalComponent } from './components/layout/modal/modal.component';
 import { CandidateComponent } from './components/layout/candidate/candidate.component';
 import { TestComponent } from './components/layout/test/test.component';
 import { TestInfoComponent } from './components/layout/test-info/test-info.component';
+import {PdfViewerModule} from "ng2-pdf-viewer";
 
 @NgModule({
   declarations: [
@@ -28,18 +29,19 @@ import { TestInfoComponent } from './components/layout/test-info/test-info.compo
     TestComponent,
     TestInfoComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    DataTablesModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: AuthService.tokenGetter
-      },
-    })
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        DataTablesModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: AuthService.tokenGetter
+            },
+        }),
+        PdfViewerModule
+    ],
   providers: [AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })

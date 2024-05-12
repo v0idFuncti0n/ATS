@@ -11,21 +11,18 @@ import {ModalComponent, ModalConfig} from "../modal/modal.component";
   styleUrls: ['./candidate.component.css']
 })
 export class CandidateComponent implements OnInit {
-  @ViewChild('candidateModal') private candidateModalComponent!: ModalComponent
-
-
   isLoading = true;
   candidates: Candidate[] = [];
   dtOptions: Config = {};
-
   candidateForm: FormGroup;
-
+  pdfToDisplayURL: string = "";
   candidateModalConfig: ModalConfig = {
-    modalTitle: "Create Bootcamp",
-    closeButtonLabel: "Save Bootcamp",
+    modalTitle: "Verify Candidate",
+    closeButtonLabel: "Verify",
     dismissButtonLabel: "Close",
-    onClose: this.openModalVerifyCandidate.bind(this)
+    onClose: this.verifyCandidate.bind(this)
   }
+  @ViewChild('candidateModal') private candidateModalComponent!: ModalComponent
 
   constructor(private candidateService: CandidateService, private form: FormBuilder) {
     this.candidateForm = this.form.group([]);
@@ -34,6 +31,7 @@ export class CandidateComponent implements OnInit {
   ngOnInit(): void {
     this.dtOptions = {
       pagingType: 'full_numbers',
+      order: [[5, "asc"]],
       columns: [
         {},
         {},
@@ -54,8 +52,16 @@ export class CandidateComponent implements OnInit {
     });
   }
 
-  async openModalVerifyCandidate() {
-    return await this.candidateModalComponent.open({ centered: true, size: 'lg' });
+  async openModalVerifyCandidate(candidate: Candidate) {
+    this.candidateService.getCandidateResumeFile(candidate.id!).subscribe(data => {
+      let blob = new Blob([data], {type: 'application/pdf'});
+      this.pdfToDisplayURL = window.URL.createObjectURL(blob);
+    });
+    return await this.candidateModalComponent.open({centered: true, size: "xl", fullscreen: true});
+  }
+
+  private verifyCandidate() {
+    return true;
   }
 }
 
