@@ -54,14 +54,20 @@
                   [original-size]="false"
                   [autoresize]="true"></pdf-viewer>
     </div>
-    <div *ngIf="pdfToDisplayURL !== ''" class="h-100 w-50">
+    <div *ngIf="pdfToDisplayURL !== ''" class="h-100 w-50 overflow-auto">
       <form [formGroup]="candidateForm">
-        <div class="mb-3 row">
-          <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-          <div class="col-sm-10">
-            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+        <div *ngFor="let skill of candidateSkills.controls; let i = index">
+          <div class="mb-3 row">
+            <label class="col-sm-2 col-form-label">Skill:</label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [value]="skill.value.skill">
+            </div>
+            <div class="col-sm-2">
+              <button class="btn btn-danger" (click)="deleteSkillFormControl(i)">Delete</button>
+            </div>
           </div>
         </div>
+        <button class="btn btn-primary" (click)="addSkillFormControl()">Add Skill</button>
       </form>
     </div>
   </div>
