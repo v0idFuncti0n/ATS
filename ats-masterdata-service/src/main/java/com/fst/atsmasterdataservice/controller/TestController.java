@@ -4,6 +4,8 @@ import com.fst.atsmasterdataservice.dto.TestDTO;
 import com.fst.atsmasterdataservice.dto.candidate.CandidateDTO;
 import com.fst.atsmasterdataservice.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,5 +51,17 @@ public class TestController {
     public ResponseEntity<TestDTO> getTest(@PathVariable Long testId) {
         TestDTO testDTO = testService.getTestById(testId);
         return ResponseEntity.ok(testDTO);
+    }
+
+    @PutMapping(path = "/tests/{testId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TestDTO> updateTest(@RequestBody TestDTO testDTO, @PathVariable Long testId) {
+        TestDTO test = testService.updateTest(testDTO, testId);
+        return ResponseEntity.ok(test);
+    }
+
+    @DeleteMapping(path = "/tests/{testId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> deleteTest(@PathVariable Long testId) {
+        testService.deleteTest(testId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

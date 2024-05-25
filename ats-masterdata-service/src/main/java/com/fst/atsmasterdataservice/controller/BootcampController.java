@@ -2,8 +2,11 @@ package com.fst.atsmasterdataservice.controller;
 
 import com.fst.atsmasterdataservice.dto.BootcampDTO;
 import com.fst.atsmasterdataservice.dto.candidate.CandidateDTO;
+import com.fst.atsmasterdataservice.entity.BootcampEntity;
 import com.fst.atsmasterdataservice.service.BootcampService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -37,5 +40,17 @@ public class BootcampController {
     public ResponseEntity<List<BootcampDTO>> getBootcamps() throws IOException {
         List<BootcampDTO> bootcamps = bootcampService.getBootcamps();
         return ResponseEntity.ok(bootcamps);
+    }
+
+    @DeleteMapping(path = "/bootcamps/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> deleteBootcamp(@PathVariable Long id) {
+        bootcampService.deleteBootcamp(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PutMapping(path = "/bootcamps/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<BootcampDTO> updateBootcamp(@RequestBody BootcampDTO bootcampDTO, @PathVariable Long id) {
+        BootcampDTO bootcamp = bootcampService.updateBootcamp(bootcampDTO, id);
+        return ResponseEntity.ok(bootcamp);
     }
 }

@@ -4,6 +4,7 @@ import com.fst.atsmasterdataservice.service.CandidateService;
 import com.fst.atsmasterdataservice.dto.candidate.CandidateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +56,12 @@ public class CandidateController {
     public ResponseEntity<List<CandidateDTO>> getCandidates() throws IOException {
         List<CandidateDTO> candidates = candidateService.getCandidates();
         return ResponseEntity.ok(candidates);
+    }
+
+    @DeleteMapping(path = "/candidates/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Void> deleteCandidate(@PathVariable Long id) {
+        candidateService.deleteCandidate(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -155,4 +155,13 @@ public class CandidateService {
         List<CandidateEntity> candidates = candidateRepository.findAll();
         return candidateMapper.listEntityToDTO(candidates);
     }
+
+    public void deleteCandidate(Long id) {
+        CandidateEntity candidate = candidateRepository.findById(id).orElseThrow(() -> new RuntimeException("No candidate found"));
+        if(!candidate.isVerified()) {
+            candidateRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Can't delete candidate already verified");
+        }
+    }
 }
