@@ -9,8 +9,9 @@ import {TestComponent} from "./components/layout/test/test.component";
 import {TestInfoComponent} from "./components/layout/test-info/test-info.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: 'dashboard', pathMatch: "full"},
+  {path: '', redirectTo: 'dashboard/candidate', pathMatch: "full"},
   {path: 'login', component: LoginComponent},
+  {path: 'dashboard', redirectTo: 'dashboard/candidate', pathMatch: "full"},
   {
     path: 'dashboard', component: LayoutComponent, canActivate: [AuthGuardService], children: [
       {path: 'bootcamp', component: BootcampComponent},

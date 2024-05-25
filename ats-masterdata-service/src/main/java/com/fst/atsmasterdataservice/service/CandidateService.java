@@ -3,6 +3,7 @@ package com.fst.atsmasterdataservice.service;
 import com.fst.atsmasterdataservice.dto.candidate.CandidateDTO;
 import com.fst.atsmasterdataservice.entity.TestEntity;
 import com.fst.atsmasterdataservice.entity.candidate.CandidateEntity;
+import com.fst.atsmasterdataservice.enums.CandidateStatus;
 import com.fst.atsmasterdataservice.feign.ATSResumeParserFeignClient;
 import com.fst.atsmasterdataservice.mapper.CandidateMapper;
 import com.fst.atsmasterdataservice.repository.TestRepository;
@@ -104,17 +105,30 @@ public class CandidateService {
         BeanUtils.copyProperties(candidate, candidateToUpdateDTO);
         candidateToUpdateDTO.setVerified(true);
         candidateToUpdateDTO.setId(candidateId);
+        candidateToUpdateDTO.setStatus(CandidateStatus.IN_POOL);
 
         CandidateEntity candidateVerified = candidateMapper.dtoToEntity(candidateToUpdateDTO);
         candidateVerified.getSkills().forEach(skillEntity -> {
             skillEntity.setCandidate(candidateVerified);
         });
 
+        candidateVerified.getWorkExperiences().forEach(workExperience -> {
+            workExperience.setCandidate(candidateVerified);
+        });
+
+        candidateVerified.getLanguages().forEach(language -> {
+            language.setCandidate(candidateVerified);
+        });
+
+        candidateVerified.getEducations().forEach(education -> {
+            education.setCandidate(candidateVerified);
+        });
+
         CandidateEntity candidateEntityToSave = candidateRepository.save(candidateVerified);
-//        skillRepository.saveAll(candidateEntityToSave.getSkills());
-//        workExperienceRepository.saveAll(candidateEntityToSave.getWorkExperiences());
-//        languageRepository.saveAll(candidateEntityToSave.getLanguages());
-//        educationRepository.saveAll(candidateEntityToSave.getEducations());
+        skillRepository.saveAll(candidateEntityToSave.getSkills());
+        workExperienceRepository.saveAll(candidateEntityToSave.getWorkExperiences());
+        languageRepository.saveAll(candidateEntityToSave.getLanguages());
+        educationRepository.saveAll(candidateEntityToSave.getEducations());
 
         return candidateMapper.entityToDTO(candidateEntityToSave);
     }
