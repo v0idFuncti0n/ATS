@@ -36,9 +36,16 @@
         <td>{{candidate.bootcampId}}</td>
         <td>{{candidate.status}}</td>
         <td>
-          <button [disabled]="candidate.verified" class="btn btn-primary" (click)="openModalVerifyCandidate(candidate)">
-            Verify
-          </button>
+          <div class="d-flex">
+            <button [disabled]="candidate.verified" class="btn btn-primary"
+                    (click)="openModalVerifyCandidate(candidate)">
+              Verify
+            </button>
+            <button *ngIf="!candidate.verified" class="btn btn-danger"
+                    (click)="deleteCandidate(candidate.id!)">
+              Delete
+            </button>
+          </div>
         </td>
       </tr>
       </tbody>

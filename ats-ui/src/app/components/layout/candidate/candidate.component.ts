@@ -140,9 +140,14 @@ export class CandidateComponent implements OnInit {
     let candidateToVerify: Candidate = this.candidateForm.value;
     console.log(candidateToVerify);
     this.candidateService.updateCandidate(candidateToVerify, this.currentCandidateToVerify!.id!).subscribe(candidate => {
-      this.reloadCurrentRoute();
       this.currentCandidateToVerify = undefined;
       this.candidateSkills.clear();
+      this.candidateEducations.clear();
+      this.candidateLanguages.clear();
+      this.candidateWorkExperiences.clear();
+      this.reloadCurrentRoute();
+    }, () => {
+      this.reloadCurrentRoute();
     });
     return true;
   }
@@ -150,6 +155,10 @@ export class CandidateComponent implements OnInit {
   private dismissVerifyCandidate() {
     this.currentCandidateToVerify = undefined;
     this.candidateSkills.clear();
+    this.candidateLanguages.clear();
+    this.candidateEducations.clear();
+    this.candidateWorkExperiences.clear();
+    this.reloadCurrentRoute();
     return true;
   }
 
@@ -207,10 +216,15 @@ export class CandidateComponent implements OnInit {
 
   reloadCurrentRoute() {
     const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this.router.navigateByUrl('/').then(() => {
       this.router.navigate([currentUrl]);
     });
   }
 
+  deleteCandidate(candidateId: number) {
+    this.candidateService.deleteCandidate(candidateId).subscribe(() => {
+      this.reloadCurrentRoute();
+    })
+  }
 }
 

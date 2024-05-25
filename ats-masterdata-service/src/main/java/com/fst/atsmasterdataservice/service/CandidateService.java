@@ -102,6 +102,9 @@ public class CandidateService {
         });
 
         CandidateDTO candidateToUpdateDTO = candidateMapper.entityToDTO(candidateToUpdateEntity);
+
+        candidate.setResumeFilename(candidateToUpdateEntity.getResumeFilename());
+
         BeanUtils.copyProperties(candidate, candidateToUpdateDTO);
         candidateToUpdateDTO.setVerified(true);
         candidateToUpdateDTO.setId(candidateId);

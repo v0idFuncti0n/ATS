@@ -51,6 +51,32 @@ export class TestInfoComponent implements OnInit {
     let testId = this.route.snapshot.params['testId'];
     console.log(testId)
 
+    this.dtOptionsICWC = {
+      pagingType: 'full_numbers',
+      columns: [
+        {
+          name: "ID",
+          searchable: false
+        },
+        {
+          name: "Candidate First Name"
+        },
+        {
+          name: "Candidate Last Name"
+        },
+        {
+          name: "Phone Number"
+        },
+        {
+          name: "Email"
+        },
+        {
+          name: "Actions",
+          searchable: false
+        }
+      ]
+    };
+
     this.dtOptionsIT = {
       pagingType: 'full_numbers',
       columns: [
@@ -75,6 +101,9 @@ export class TestInfoComponent implements OnInit {
         {
           name: "Final Note",
           searchable: false
+        },
+        {
+          name: "Actions"
         }
       ]
     };

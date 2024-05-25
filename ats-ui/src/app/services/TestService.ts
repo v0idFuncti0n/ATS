@@ -30,4 +30,12 @@ export class TestService {
   getTestById(testId: number) {
     return this.http.get<Test>(API.TEST + '/' + testId);
   }
+
+  updateTest(test: Test, testId: number) {
+    return this.http.put<Test>(API.TEST + '/' + testId, test);
+  }
+
+  deleteTest(id: number) {
+    return this.http.delete<Test>(API.TEST + '/' + id);
+  }
 }

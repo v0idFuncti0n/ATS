@@ -29,4 +29,8 @@ export class CandidateService {
   public refuseCandidateInTest(candidateId: number, testId: number) {
     return this.http.post<Candidate>(API.CANDIDATES + '/' + candidateId + '/' + 'test/' + testId + '/refuse', {});
   }
+
+  deleteCandidate(candidateId: number) {
+    return this.http.delete(API.CANDIDATES + '/' + candidateId);
+  }
 }

@@ -17,4 +17,12 @@ export class BootcampService {
   public createBootcamp(bootcamp: Bootcamp): Observable<Bootcamp> {
     return this.http.post<Bootcamp>(API.BOOTCAMP, bootcamp);
   }
+
+  updateBootcamp(bootcampToUpdate: Bootcamp, bootcampId: number): Observable<Bootcamp> {
+    return this.http.put<Bootcamp>(API.BOOTCAMPS + "/" + bootcampId, bootcampToUpdate);
+  }
+
+  deleteBootcamp(bootcampId: number): Observable<Bootcamp> {
+    return this.http.delete<Bootcamp>(API.BOOTCAMPS + "/" + bootcampId);
+  }
 }

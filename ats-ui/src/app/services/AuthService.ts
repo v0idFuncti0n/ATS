@@ -7,7 +7,13 @@ import {API} from "../api/API";
 
 @Injectable()
 export class AuthService {
-  constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
+  constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {
+  }
+
+  static tokenGetter() {
+    return localStorage.getItem('token');
+  }
+
   public isAuthenticated(): boolean {
     const token = localStorage.getItem('token');    // Check whether the token is expired and return
     // true or false
@@ -19,7 +25,7 @@ export class AuthService {
   }
 
   getCurrentUser() {
-    if(this.isAuthenticated()) {
+    if (this.isAuthenticated()) {
       return new User(
         localStorage.getItem('username')!,
         localStorage.getItem('role')!,
@@ -34,10 +40,5 @@ export class AuthService {
     localStorage.removeItem('username');
     localStorage.removeItem('token');
     localStorage.removeItem('role');
-
-  }
-
-  static tokenGetter() {
-    return localStorage.getItem('token');
   }
 }

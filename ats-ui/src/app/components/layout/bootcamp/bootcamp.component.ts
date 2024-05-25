@@ -16,6 +16,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class BootcampComponent implements OnInit {
   @ViewChild('bootcampModal') private bootcampModalComponent!: ModalComponent
+  @ViewChild('bootcampUpdateModal') private bootcampUpdateModalComponent!: ModalComponent
   @ViewChild('testModal') private testModalComponent!: ModalComponent
 
   isLoading = true;
@@ -25,6 +26,7 @@ export class BootcampComponent implements OnInit {
   dtOptions: Config = {};
 
   bootcampForm: FormGroup;
+  bootcampUpdateForm: FormGroup;
   testForm: FormGroup;
 
   bootcampModalConfig: ModalConfig = {
@@ -32,6 +34,13 @@ export class BootcampComponent implements OnInit {
     closeButtonLabel: "Save Bootcamp",
     dismissButtonLabel: "Close",
     onClose: this.saveBootcamp.bind(this)
+  }
+
+  bootcampUpdateModalConfig: ModalConfig = {
+    modalTitle: "Update Bootcamp",
+    closeButtonLabel: "Update Bootcamp",
+    dismissButtonLabel: "Close",
+    onClose: this.updateBootcamp.bind(this)
   }
 
   testModalConfig: ModalConfig = {
@@ -43,6 +52,16 @@ export class BootcampComponent implements OnInit {
 
   constructor(private bootcampService: BootcampService, private testService: TestService, private form: FormBuilder, private router: Router, private toastr: ToastrService) {
     this.bootcampForm = this.form.group({
+      name: ['',Validators.required],
+      startDate: ['',Validators.required],
+      endDate: ['',Validators.required],
+      candidateNumber: ['',Validators.required],
+      skillRequired: ['',Validators.required],
+      languageRequired: ['',Validators.required],
+      languageLevelRequired: ['',Validators.required],
+    });
+
+    this.bootcampUpdateForm = this.form.group({
       name: ['',Validators.required],
       startDate: ['',Validators.required],
       endDate: ['',Validators.required],
@@ -89,6 +108,29 @@ export class BootcampComponent implements OnInit {
     return true;
   }
 
+  async openBootcampUpdateModal(bootcamp: Bootcamp | undefined) {
+    this.currentSelectedBootcampId = bootcamp!.id;
+    this.bootcampUpdateForm = this.form.group({
+      name: [bootcamp?.name,Validators.required],
+      startDate: [bootcamp?.startDate,Validators.required],
+      endDate: [bootcamp?.endDate,Validators.required],
+      candidateNumber: [bootcamp?.candidateNumber,Validators.required],
+      skillRequired: [bootcamp?.skillRequired,Validators.required],
+      languageRequired: [bootcamp?.languageRequired,Validators.required],
+      languageLevelRequired: [bootcamp?.languageLevelRequired,Validators.required]
+    });
+    return await this.bootcampUpdateModalComponent.open({ centered: true, size: 'lg' })
+  }
+
+  updateBootcamp(): boolean {
+    let bootcampToUpdate: Bootcamp = this.bootcampUpdateForm!.value;
+    this.bootcampService.updateBootcamp(bootcampToUpdate, this.currentSelectedBootcampId!).subscribe(response => {
+      console.log(response)
+      this.reloadCurrentRoute();
+    });
+    return true;
+  }
+
   async openTestModal(bootcampId: number | undefined) {
     this.currentSelectedBootcampId = bootcampId;
     return await this.testModalComponent.open({ centered: true, size: 'lg' })
@@ -116,5 +158,14 @@ export class BootcampComponent implements OnInit {
     this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
       this.router.navigate([currentUrl]);
     });
+  }
+
+  deleteBootcamp(id: number) {
+    this.bootcampService.deleteBootcamp(id).subscribe(() => {
+      console.log("deleted")
+      this.reloadCurrentRoute()
+    }, ()=> {
+      console.log("error")
+    })
   }
 }
