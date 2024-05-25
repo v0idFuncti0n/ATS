@@ -7,6 +7,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TestService} from "../../../services/TestService";
 import {Test} from "../../../models/Test";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-bootcamp',
@@ -40,7 +41,7 @@ export class BootcampComponent implements OnInit {
     onClose: this.saveTest.bind(this)
   }
 
-  constructor(private bootcampService: BootcampService, private testService: TestService, private form: FormBuilder, private router: Router) {
+  constructor(private bootcampService: BootcampService, private testService: TestService, private form: FormBuilder, private router: Router, private toastr: ToastrService) {
     this.bootcampForm = this.form.group({
       name: ['',Validators.required],
       startDate: ['',Validators.required],
@@ -80,6 +81,10 @@ export class BootcampComponent implements OnInit {
     this.bootcampService.createBootcamp(bootcampToSave).subscribe(response => {
       console.log(response)
       this.reloadCurrentRoute();
+      this.toastr.success("Bootcamp created successfully!");
+    }, error => {
+      this.toastr.error("Failed to create bootcamp");
+
     });
     return true;
   }
@@ -95,6 +100,9 @@ export class BootcampComponent implements OnInit {
     this.testService.createTest(testToSave, this.currentSelectedBootcampId!).subscribe(response => {
       console.log(response);
       this.reloadCurrentRoute();
+      this.toastr.success("Test created successfully!");
+    }, error => {
+      this.toastr.error("Failed to create test");
     });
     return true;
   }

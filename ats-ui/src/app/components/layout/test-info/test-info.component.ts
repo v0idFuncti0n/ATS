@@ -9,6 +9,7 @@ import {ModalComponent, ModalConfig} from "../modal/modal.component";
 import {Candidate} from "../../../models/candidate/Candidate";
 import {Test} from "../../../models/Test";
 import {CandidateService} from "../../../services/CandidateService";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-test-info',
@@ -39,7 +40,7 @@ export class TestInfoComponent implements OnInit {
 
 
 
-  constructor(private candidateService: CandidateService, private testService: TestService, private testInfoService: TestInfoService, private route: ActivatedRoute, private form: FormBuilder, private router: Router) {
+  constructor(private candidateService: CandidateService, private testService: TestService, private testInfoService: TestInfoService, private route: ActivatedRoute, private form: FormBuilder, private router: Router, private toastr: ToastrService) {
     this.testInfoForm = this.form.group({
       technicalNote: ['',Validators.required],
       interviewNote: ['',Validators.required]
@@ -101,6 +102,9 @@ export class TestInfoComponent implements OnInit {
     this.testInfoService.updateTestInfo(testInfo, this.currentTestInfoId!).subscribe(data => {
       console.log(data)
       this.reloadCurrentRoute();
+      this.toastr.success("Note updated successfully!");
+    }, error => {
+      this.toastr.error("Failed to update note");
     });
     return true;
   }
@@ -109,6 +113,9 @@ export class TestInfoComponent implements OnInit {
     this.candidateService.refuseCandidateInTest(candidate?.id!, this.currentTest?.id!).subscribe(candidate => {
       console.log(candidate);
       this.reloadCurrentRoute();
+      this.toastr.success("Candidate removed successfully!");
+    }, error => {
+      this.toastr.error("Failed to remove candidate");
     })
   }
 
@@ -116,6 +123,9 @@ export class TestInfoComponent implements OnInit {
     this.testService.changeTestStatusToInTesting(id!).subscribe(test => {
       console.log(test)
       this.reloadCurrentRoute();
+      this.toastr.success("Candidate list confirmed successfully!");
+    }, error => {
+      this.toastr.error("Failed to confirm Candidate list");
     })
   }
 
@@ -123,6 +133,9 @@ export class TestInfoComponent implements OnInit {
     this.testService.changeTestStatusToTestCompleted(id!).subscribe(test => {
       console.log(test)
       this.reloadCurrentRoute();
+      this.toastr.success("Test completed successfully!");
+    }, error => {
+      this.toastr.error("Failed to complete test");
     })
   }
 

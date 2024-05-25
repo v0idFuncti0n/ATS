@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {AuthService} from "../../services/AuthService";
 import {Router} from "@angular/router";
 import { Validator} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent {
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
-              private router: Router)
+              private router: Router,
+              private toastr: ToastrService)
 {
 
     this.form = this.fb.group({
@@ -38,9 +40,12 @@ export class LoginComponent {
             localStorage.setItem("username", user.username);
             localStorage.setItem("role", user.role);
             localStorage.setItem("token", user.token);
+            this.toastr.success("login successfully !");
             this.router.navigateByUrl('/');
+
           },
           (err) => {
+            this.toastr.error("invalid login info!");
             console.log(err);
           }
         );
@@ -50,5 +55,6 @@ export class LoginComponent {
   logout() {
     this.authService.logout();
     this.router.navigateByUrl('/');
+
   }
 }

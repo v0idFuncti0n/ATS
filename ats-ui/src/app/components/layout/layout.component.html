@@ -6,8 +6,8 @@
       <a class="nav-link bx bxs-user-circle profile_icon" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
       </a>
       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="user_nav_link nav_link"> <i class='bx bxs-user-detail nav_icon'></i> <span class="nav_name">Username</span> </a>
-        <a class="user_nav_link nav_link"> <i class='bx bx-cog nav_icon'></i> <span class="nav_name">Role : Admin</span> </a>
+        <a class="user_nav_link nav_link"> <i class='bx bxs-user-detail nav_icon'></i> <span class="nav_name">{{currentUser?.username}}</span> </a>
+        <a class="user_nav_link nav_link"> <i class='bx bx-cog nav_icon'></i> <span class="nav_name">Role : {{currentUser?.role}}</span> </a>
         <hr class="dropdown-divider">
         <a href="#" class="logout_nav_link nav_link"> <i class='bx bx-log-out nav_icon'></i> <span class="nav_name" (click)="logout()">Log Out</span> </a>
       </ul>

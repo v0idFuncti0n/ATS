@@ -18,6 +18,11 @@ import { TestComponent } from './components/layout/test/test.component';
 import { TestInfoComponent } from './components/layout/test-info/test-info.component';
 import {PdfViewerModule} from "ng2-pdf-viewer";
 
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ToastrModule } from 'ngx-toastr';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,10 +45,13 @@ import {PdfViewerModule} from "ng2-pdf-viewer";
                 tokenGetter: AuthService.tokenGetter
             },
         }),
-        PdfViewerModule
+        PdfViewerModule,
+        CommonModule,
+        BrowserAnimationsModule,
+      ToastrModule.forRoot(),
     ],
   providers: [AuthService, AuthGuardService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 }

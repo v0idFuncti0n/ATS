@@ -4,6 +4,7 @@ import {User} from "../models/User";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {API} from "../api/API";
 
+
 @Injectable()
 export class AuthService {
   constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
@@ -17,10 +18,23 @@ export class AuthService {
     return this.http.post<User>(API.AUTHENTICATE, {username, password})
   }
 
+  getCurrentUser() {
+    if(this.isAuthenticated()) {
+      return new User(
+        localStorage.getItem('username')!,
+        localStorage.getItem('role')!,
+        localStorage.getItem('token')!
+      )
+    } else {
+      return null;
+    }
+  }
+
   logout() {
     localStorage.removeItem('username');
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+
   }
 
   static tokenGetter() {

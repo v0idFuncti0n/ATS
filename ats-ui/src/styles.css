@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 @import url("https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css");
+@import 'ngx-toastr/toastr';
 
 :root {
   --header-height: 3rem;
@@ -212,4 +213,12 @@ a {
 .logout_nav_link:hover {
   color: #dc3545;
 ;
+}
+
+.form-style {
+  justify-items: center;
+}
+
+.img-style{
+  width: 50%;
 }

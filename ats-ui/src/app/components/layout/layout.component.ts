@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoginComponent} from "../login/login.component";
 import {AuthService} from "../../services/AuthService";
 import {Router} from "@angular/router";
+import {User} from "../../models/User";
 
 
 @Component({
@@ -9,10 +10,15 @@ import {Router} from "@angular/router";
   templateUrl: './layout.component.html',
   styleUrls: ['./layout.component.css']
 })
-export class LayoutComponent {
-  constructor( private authService: AuthService, private router: Router) {
+export class LayoutComponent implements OnInit{
+
+  currentUser: User | undefined;
+  constructor(private authService: AuthService, private router: Router) {
   }
 
+  ngOnInit() {
+    this.currentUser = this.authService.getCurrentUser()!;
+  }
 
   logout() {
     this.authService.logout();
