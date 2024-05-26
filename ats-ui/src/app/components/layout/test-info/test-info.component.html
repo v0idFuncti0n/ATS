@@ -68,7 +68,7 @@
         <td>{{testInfo.interviewNote}}</td>
         <td>{{testInfo.finalNote}}</td>
         <td *ngIf="currentTest?.status !== 'COMPLETED'">
-          <button class="btn btn-primary" (click)="openTestInfoModal(testInfo.id!, testInfo.candidate!)">Update Notes
+          <button class="mx-2 btn btn-primary" (click)="openTestInfoModal(testInfo.id!, testInfo.candidate!)">Update Notes
           </button>
         </td>
         <td *ngIf="currentTest?.status == 'COMPLETED'">

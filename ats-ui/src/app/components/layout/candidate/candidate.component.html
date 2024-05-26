@@ -41,7 +41,7 @@
                     (click)="openModalVerifyCandidate(candidate)">
               Verify
             </button>
-            <button *ngIf="!candidate.verified" class="btn btn-danger" [swal]="{ title: 'Do you want to delete Candidate?', showConfirmButton: false, showDenyButton: true, denyButtonText: 'Delete', showCancelButton: true }"
+            <button *ngIf="!candidate.verified" class="mx-2 btn btn-danger" [swal]="{ title: 'Do you want to delete Candidate?', showConfirmButton: false, showDenyButton: true, denyButtonText: 'Delete', showCancelButton: true }"
                     (deny)="deleteCandidate(candidate.id!)">
               Delete
             </button>
