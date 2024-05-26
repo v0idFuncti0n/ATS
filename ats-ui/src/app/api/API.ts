@@ -1,5 +1,7 @@
+import {environment} from "../../environments/environment";
+
 export class API {
-  public static HOST: string = "http://localhost:8082/";
+  public static HOST: string = environment.host;
 
   public static AUTHENTICATE: string = API.HOST + "authenticate";
 

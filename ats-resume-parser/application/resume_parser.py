@@ -38,7 +38,7 @@ class ResumeParser():
 
     def query_completion(self: object,
                          prompt: str,
-                         engine: str = 'gpt-3.5-turbo-instruct',
+                         engine: str = 'gpt-3.5-turbo-16k',
                          temperature: float = 0.0,
                          max_tokens: int = 100,
                          top_p: int = 1,
