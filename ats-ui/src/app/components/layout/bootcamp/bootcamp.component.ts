@@ -96,14 +96,20 @@ export class BootcampComponent implements OnInit {
 
   saveBootcamp(): boolean {
     let bootcampToSave: Bootcamp = this.bootcampForm.value;
-    this.bootcampService.createBootcamp(bootcampToSave).subscribe(response => {
-      this.reloadCurrentRoute();
-      this.toastr.success("Bootcamp created successfully!");
-    }, error => {
-      this.toastr.error("Failed to create bootcamp");
+    if (this.bootcampForm.valid){
+      this.bootcampService.createBootcamp(bootcampToSave).subscribe(response => {
+        this.reloadCurrentRoute();
+        this.toastr.success("Bootcamp created successfully!");
+      }, error => {
+        this.toastr.error("Failed to create bootcamp");
+      });
+      return true;
+    }
+    else{
+      this.toastr.error("Error in bootcamp form");
+      return false;
+    }
 
-    });
-    return true;
   }
 
   async openBootcampUpdateModal(bootcamp: Bootcamp | undefined) {
@@ -122,10 +128,19 @@ export class BootcampComponent implements OnInit {
 
   updateBootcamp(): boolean {
     let bootcampToUpdate: Bootcamp = this.bootcampUpdateForm!.value;
-    this.bootcampService.updateBootcamp(bootcampToUpdate, this.currentSelectedBootcampId!).subscribe(response => {
-      this.reloadCurrentRoute();
-    });
-    return true;
+    if (this.bootcampUpdateForm.valid){
+      this.bootcampService.updateBootcamp(bootcampToUpdate, this.currentSelectedBootcampId!).subscribe(response => {
+        this.reloadCurrentRoute();
+        this.toastr.success("Bootcamp updated successfully!");
+      }, error => {
+        this.toastr.error("Failed to update bootcamp");
+      });
+      return true;
+    }
+    else{
+      this.toastr.error("Error in bootcamp update form");
+      return false;
+    }
   }
 
   async openTestModal(bootcampId: number | undefined) {
@@ -135,13 +150,19 @@ export class BootcampComponent implements OnInit {
 
   saveTest(): boolean {
     let testToSave: Test = this.testForm.value;
-    this.testService.createTest(testToSave, this.currentSelectedBootcampId!).subscribe(response => {
-      this.reloadCurrentRoute();
-      this.toastr.success("Test created successfully!");
-    }, error => {
-      this.toastr.error("Failed to create test");
-    });
-    return true;
+    if (this.testForm.valid){
+      this.testService.createTest(testToSave, this.currentSelectedBootcampId!).subscribe(response => {
+        this.reloadCurrentRoute();
+        this.toastr.success("Test created successfully!");
+      }, error => {
+        this.toastr.error("Failed to create test");
+      });
+      return true;
+    }
+    else{
+      this.toastr.error("Error in test form");
+      return false;
+    }
   }
 
   goToTest(testId: number | undefined) {
@@ -159,6 +180,9 @@ export class BootcampComponent implements OnInit {
   deleteBootcamp(id: number) {
     this.bootcampService.deleteBootcamp(id).subscribe(() => {
       this.reloadCurrentRoute()
+      this.toastr.success("Bootcamp deleted successfully!");
+    }, error => {
+      this.toastr.error("Failed to delete bootcamp");
     }, ()=> {
     })
   }

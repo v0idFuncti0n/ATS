@@ -5,6 +5,7 @@ import {CandidateService} from "../../../services/CandidateService";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ModalComponent, ModalConfig} from "../modal/modal.component";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-candidate',
@@ -29,7 +30,7 @@ export class CandidateComponent implements OnInit {
   }
   @ViewChild('candidateModal') private candidateModalComponent!: ModalComponent
 
-  constructor(private candidateService: CandidateService, private form: FormBuilder, private router: Router) {
+  constructor(private candidateService: CandidateService, private form: FormBuilder, private router: Router, private toastr: ToastrService) {
     this.candidateForm = this.form.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -139,7 +140,9 @@ export class CandidateComponent implements OnInit {
       this.candidateEducations.clear();
       this.candidateLanguages.clear();
       this.candidateWorkExperiences.clear();
-      this.reloadCurrentRoute();
+      this.toastr.success("Candidate verified successfully!");
+    },  error => {
+      this.toastr.error("Failed to verify candidate");
     }, () => {
       this.reloadCurrentRoute();
     });
@@ -219,6 +222,9 @@ export class CandidateComponent implements OnInit {
   deleteCandidate(candidateId: number) {
     this.candidateService.deleteCandidate(candidateId).subscribe(() => {
       this.reloadCurrentRoute();
+      this.toastr.success("Candidate deleted successfully!");
+    }, error => {
+      this.toastr.error("Failed to delete candidate");
     })
   }
 }

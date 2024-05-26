@@ -212,6 +212,7 @@ a {
 
 .logout_nav_link:hover {
   color: #dc3545;
+  cursor: pointer;
 ;
 }
 

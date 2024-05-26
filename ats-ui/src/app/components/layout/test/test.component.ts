@@ -5,6 +5,7 @@ import {Test} from "../../../models/Test";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ModalComponent, ModalConfig} from "../modal/modal.component";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-test',
@@ -28,7 +29,7 @@ export class TestComponent implements OnInit {
     onClose: this.updateTest.bind(this)
   }
 
-  constructor(private testService: TestService, private route: ActivatedRoute, private router: Router, private form: FormBuilder) {
+  constructor(private testService: TestService, private route: ActivatedRoute, private router: Router, private form: FormBuilder, private toastr: ToastrService) {
     this.testUpdateForm = this.form.group({
       startDate: ['' ,Validators.required],
       endDate: ['' ,Validators.required],
@@ -91,16 +92,27 @@ export class TestComponent implements OnInit {
   }
 
   updateTest() {
-    this.testService.updateTest(this.testUpdateForm.value, this.currentTest!.id!).subscribe(() => {
-      this.reloadCurrentRoute();
-    }, (err) => {
-    })
-    return true;
+    if (this.testUpdateForm.valid){
+      this.testService.updateTest(this.testUpdateForm.value, this.currentTest!.id!).subscribe(() => {
+        this.toastr.success("Test updated successfully!");
+      },  error => {
+        this.toastr.error("Failed to update test");
+      }, () => {
+        this.reloadCurrentRoute();
+      })
+      return true;
+    }
+    else{
+      this.toastr.error("Error in test update form");
+      return false;
+    }
   }
 
   deleteTest(id: number) {
     this.testService.deleteTest(id).subscribe(() => {
-      this.reloadCurrentRoute();
+      this.toastr.success("Test deleted successfully!");
+    },  error => {
+      this.toastr.error("Failed to delete test");
     }, () => {
       this.reloadCurrentRoute();
     })
