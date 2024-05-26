@@ -42,7 +42,7 @@
               Test
             </button>
             <button *ngIf="bootcamp.test == null" class="btn btn-warning" (click)="openBootcampUpdateModal(bootcamp)">Update</button>
-            <button *ngIf="bootcamp.test == null" class="btn btn-danger" (click)="deleteBootcamp(bootcamp.id!)">Delete</button>
+            <button *ngIf="bootcamp.test == null" [swal]="{ title: 'Do you want to delete Bootcamp?', showConfirmButton: false, showDenyButton: true, denyButtonText: 'Delete', showCancelButton: true }" class="btn btn-danger" (deny)="deleteBootcamp(bootcamp.id!)">Delete</button>
           </div>
         </td>
       </tr>

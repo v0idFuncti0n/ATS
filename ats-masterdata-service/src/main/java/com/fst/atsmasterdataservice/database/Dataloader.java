@@ -102,8 +102,6 @@ public class Dataloader implements ApplicationRunner {
             savedCandidate.setSkills(candidateSkills);
             savedCandidate.setLanguages(candidateLanguages);
             candidateRepository.save(savedCandidate);
-
-
         }
     }
 

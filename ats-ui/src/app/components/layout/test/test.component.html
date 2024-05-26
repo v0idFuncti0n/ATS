@@ -30,7 +30,7 @@
           <div class="d-flex">
             <button class="btn btn-primary" (click)="goToTestInfo(test.id)">Test Info</button>
             <button *ngIf="test.status === 'IN_COMMUNICATION_WITH_CANDIDATES'" class="btn btn-warning" (click)="openUpdateTestModal(test)">Update</button>
-            <button *ngIf="test.status === 'IN_COMMUNICATION_WITH_CANDIDATES'" class="btn btn-danger" (click)="deleteTest(test.id!)">Delete</button>
+            <button *ngIf="test.status === 'IN_COMMUNICATION_WITH_CANDIDATES'" class="btn btn-danger" [swal]="{ title: 'Do you want to delete Test?', showConfirmButton: false, showDenyButton: true, denyButtonText: 'Delete', showCancelButton: true }" (deny)="deleteTest(test.id!)">Delete</button>
           </div>
         </td>
       </tr>
