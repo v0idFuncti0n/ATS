@@ -49,7 +49,6 @@ export class TestInfoComponent implements OnInit {
 
   ngOnInit(): void {
     let testId = this.route.snapshot.params['testId'];
-    console.log(testId)
 
     this.dtOptionsICWC = {
       pagingType: 'full_numbers',
@@ -114,7 +113,6 @@ export class TestInfoComponent implements OnInit {
 
     this.testInfoService.getTestInfosByTestId(testId).subscribe((testInfos) => {
       this.testInfos = testInfos;
-      console.log(testInfos)
       this.isLoading = false;
     });
   }
@@ -127,9 +125,7 @@ export class TestInfoComponent implements OnInit {
 
   updateTestInfo() {
     let testInfo: TestInfo = this.testInfoForm.value;
-    console.log(testInfo)
     this.testInfoService.updateTestInfo(testInfo, this.currentTestInfoId!).subscribe(data => {
-      console.log(data)
       this.reloadCurrentRoute();
       this.toastr.success("Note updated successfully!");
     }, error => {
@@ -140,7 +136,6 @@ export class TestInfoComponent implements OnInit {
 
   refuseCandidate(candidate: Candidate | undefined) {
     this.candidateService.refuseCandidateInTest(candidate?.id!, this.currentTest?.id!).subscribe(candidate => {
-      console.log(candidate);
       this.reloadCurrentRoute();
       this.toastr.success("Candidate removed successfully!");
     }, error => {
@@ -150,7 +145,6 @@ export class TestInfoComponent implements OnInit {
 
   confirmCandidateList(id: number | undefined) {
     this.testService.changeTestStatusToInTesting(id!).subscribe(test => {
-      console.log(test)
       this.reloadCurrentRoute();
       this.toastr.success("Candidate list confirmed successfully!");
     }, error => {
@@ -160,7 +154,6 @@ export class TestInfoComponent implements OnInit {
 
   completeTest(id: number | undefined) {
     this.testService.changeTestStatusToTestCompleted(id!).subscribe(test => {
-      console.log(test)
       this.reloadCurrentRoute();
       this.toastr.success("Test completed successfully!");
     }, error => {
@@ -177,7 +170,6 @@ export class TestInfoComponent implements OnInit {
 
     this.testInfoService.getTestInfosByTestId(testId).subscribe((testInfos) => {
       this.testInfos = testInfos;
-      console.log(testInfos)
       this.isLoading = false;
     });
   }

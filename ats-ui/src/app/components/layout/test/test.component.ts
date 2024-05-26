@@ -74,7 +74,6 @@ export class TestComponent implements OnInit {
 
     this.testService.getAllTests().subscribe((tests) => {
       this.tests = tests;
-      console.log(tests)
       this.isLoading = false;
     });
   }
@@ -87,7 +86,6 @@ export class TestComponent implements OnInit {
     this.isLoading = true;
     this.testService.getAllTests().subscribe((tests) => {
       this.tests = tests;
-      console.log(tests)
       this.isLoading = false;
     });
   }
@@ -96,7 +94,6 @@ export class TestComponent implements OnInit {
     this.testService.updateTest(this.testUpdateForm.value, this.currentTest!.id!).subscribe(() => {
       this.reloadCurrentRoute();
     }, (err) => {
-      console.log(err)
     })
     return true;
   }

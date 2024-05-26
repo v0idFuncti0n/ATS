@@ -79,14 +79,12 @@ export class CandidateComponent implements OnInit {
 
     this.candidateService.getAllCandidates().subscribe((candidates) => {
       this.candidates = candidates;
-      console.log(candidates)
       this.isLoading = false;
     });
   }
 
   async openModalVerifyCandidate(candidate: Candidate) {
     this.currentCandidateToVerify = candidate;
-    console.log(this.currentCandidateToVerify)
 
     this.candidateForm.patchValue(this.currentCandidateToVerify);
 
@@ -103,7 +101,6 @@ export class CandidateComponent implements OnInit {
         level: [language.level,Validators.required]
       });
       this.candidateLanguages.push(languageForm);
-      console.log(languageForm)
     })
 
     this.currentCandidateToVerify.workExperiences.forEach(workExperience => {
@@ -115,7 +112,6 @@ export class CandidateComponent implements OnInit {
         jobSummary: [workExperience.jobSummary,Validators.required]
       });
       this.candidateWorkExperiences.push(workExperienceForm);
-      console.log(workExperienceForm)
     })
 
     this.currentCandidateToVerify.educations.forEach(education => {
@@ -126,7 +122,6 @@ export class CandidateComponent implements OnInit {
         location: [education.location,Validators.required]
       });
       this.candidateEducations.push(educationForm);
-      console.log(educationForm)
     })
 
     this.candidateService.getCandidateResumeFile(candidate.id!).subscribe(data => {
@@ -138,7 +133,6 @@ export class CandidateComponent implements OnInit {
 
   private verifyCandidate() {
     let candidateToVerify: Candidate = this.candidateForm.value;
-    console.log(candidateToVerify);
     this.candidateService.updateCandidate(candidateToVerify, this.currentCandidateToVerify!.id!).subscribe(candidate => {
       this.currentCandidateToVerify = undefined;
       this.candidateSkills.clear();
@@ -218,7 +212,6 @@ export class CandidateComponent implements OnInit {
     this.isLoading = true;
     this.candidateService.getAllCandidates().subscribe((candidates) => {
       this.candidates = candidates;
-      console.log(candidates)
       this.isLoading = false;
     });
   }

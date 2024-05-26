@@ -79,7 +79,6 @@ export class BootcampComponent implements OnInit {
 
     bootcampService.getAllBootcamps().subscribe((bootcamps) => {
       this.bootcamps = bootcamps;
-      console.log(bootcamps)
       this.isLoading = false;
     });
   }
@@ -98,7 +97,6 @@ export class BootcampComponent implements OnInit {
   saveBootcamp(): boolean {
     let bootcampToSave: Bootcamp = this.bootcampForm.value;
     this.bootcampService.createBootcamp(bootcampToSave).subscribe(response => {
-      console.log(response)
       this.reloadCurrentRoute();
       this.toastr.success("Bootcamp created successfully!");
     }, error => {
@@ -125,7 +123,6 @@ export class BootcampComponent implements OnInit {
   updateBootcamp(): boolean {
     let bootcampToUpdate: Bootcamp = this.bootcampUpdateForm!.value;
     this.bootcampService.updateBootcamp(bootcampToUpdate, this.currentSelectedBootcampId!).subscribe(response => {
-      console.log(response)
       this.reloadCurrentRoute();
     });
     return true;
@@ -138,9 +135,7 @@ export class BootcampComponent implements OnInit {
 
   saveTest(): boolean {
     let testToSave: Test = this.testForm.value;
-    console.log(testToSave);
     this.testService.createTest(testToSave, this.currentSelectedBootcampId!).subscribe(response => {
-      console.log(response);
       this.reloadCurrentRoute();
       this.toastr.success("Test created successfully!");
     }, error => {
@@ -157,17 +152,14 @@ export class BootcampComponent implements OnInit {
     this.isLoading = true;
     this.bootcampService.getAllBootcamps().subscribe((bootcamps) => {
       this.bootcamps = bootcamps;
-      console.log(bootcamps)
       this.isLoading = false;
     });
   }
 
   deleteBootcamp(id: number) {
     this.bootcampService.deleteBootcamp(id).subscribe(() => {
-      console.log("deleted")
       this.reloadCurrentRoute()
     }, ()=> {
-      console.log("error")
     })
   }
 }

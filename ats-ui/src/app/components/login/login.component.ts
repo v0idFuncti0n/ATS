@@ -29,10 +29,6 @@ export class LoginComponent {
 
   login() {
     const val = this.form.value;
-    console.log(val)
-    if(val.username !== null){
-      console.log(val);
-    }
     if (val.username && val.password) {
       this.authService.login(val.username, val.password)
         .subscribe(
@@ -46,7 +42,6 @@ export class LoginComponent {
           },
           (err) => {
             this.toastr.error("invalid login info!");
-            console.log(err);
           }
         );
     }
