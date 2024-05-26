@@ -154,9 +154,11 @@ export class BootcampComponent implements OnInit {
   }
 
   reloadCurrentRoute() {
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
+    this.isLoading = true;
+    this.bootcampService.getAllBootcamps().subscribe((bootcamps) => {
+      this.bootcamps = bootcamps;
+      console.log(bootcamps)
+      this.isLoading = false;
     });
   }
 

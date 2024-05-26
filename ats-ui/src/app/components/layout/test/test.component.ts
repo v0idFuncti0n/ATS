@@ -84,9 +84,11 @@ export class TestComponent implements OnInit {
   }
 
   reloadCurrentRoute() {
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
+    this.isLoading = true;
+    this.testService.getAllTests().subscribe((tests) => {
+      this.tests = tests;
+      console.log(tests)
+      this.isLoading = false;
     });
   }
 

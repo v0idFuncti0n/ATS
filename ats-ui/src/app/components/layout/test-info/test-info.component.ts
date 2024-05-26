@@ -169,9 +169,16 @@ export class TestInfoComponent implements OnInit {
   }
 
   reloadCurrentRoute() {
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate([currentUrl]);
+    this.isLoading = true;
+    let testId = this.route.snapshot.params['testId'];
+    this.testService.getTestById(testId).subscribe(test => {
+      this.currentTest = test;
+    })
+
+    this.testInfoService.getTestInfosByTestId(testId).subscribe((testInfos) => {
+      this.testInfos = testInfos;
+      console.log(testInfos)
+      this.isLoading = false;
     });
   }
 }

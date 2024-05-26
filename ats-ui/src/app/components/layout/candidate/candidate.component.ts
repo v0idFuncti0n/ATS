@@ -215,9 +215,11 @@ export class CandidateComponent implements OnInit {
   }
 
   reloadCurrentRoute() {
-    const currentUrl = this.router.url;
-    this.router.navigateByUrl('/').then(() => {
-      this.router.navigate([currentUrl]);
+    this.isLoading = true;
+    this.candidateService.getAllCandidates().subscribe((candidates) => {
+      this.candidates = candidates;
+      console.log(candidates)
+      this.isLoading = false;
     });
   }
 
