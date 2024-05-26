@@ -7,6 +7,7 @@ import {AuthGuardService} from "./guard/AuthGuardService";
 import {CandidateComponent} from "./components/layout/candidate/candidate.component";
 import {TestComponent} from "./components/layout/test/test.component";
 import {TestInfoComponent} from "./components/layout/test-info/test-info.component";
+import {PageNotFoundComponent} from "./components/page-not-found/page-not-found.component";
 
 const routes: Routes = [
   {path: '', redirectTo: 'dashboard/candidate', pathMatch: "full"},
@@ -19,7 +20,8 @@ const routes: Routes = [
       {path: 'test', component: TestComponent},
       {path: 'testInfo/:testId', component: TestInfoComponent}
     ]
-  }
+  },
+  { path: '**', pathMatch: 'full', component: PageNotFoundComponent }
 ];
 
 @NgModule({
