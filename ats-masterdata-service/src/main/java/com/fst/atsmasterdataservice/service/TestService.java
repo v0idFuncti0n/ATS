@@ -86,7 +86,7 @@ public class TestService {
     }
 
     private List<CandidateEntity> getFilteredCandidates(List<CandidateEntity> candidateEntities, BootcampEntity bootcamp, int candidateNumber) {
-        List<CandidateEntity> candidateEntitiesFilteredByInPoolStatus = candidateEntities.stream().filter(candidateEntity -> candidateEntity.getStatus().equals(CandidateStatus.IN_POOL)).toList();
+        List<CandidateEntity> candidateEntitiesFilteredByInPoolStatus = candidateEntities.stream().filter(candidateEntity -> (candidateEntity.getStatus() != null) && (candidateEntity.getStatus().equals(CandidateStatus.IN_POOL))).toList();
         // System.out.println("total candidates: " + candidateEntitiesFilteredByInPoolStatus.size());
 
         List<CandidateEntity> candidateEntitiesFilteredByIsVerifiedStatus = candidateEntitiesFilteredByInPoolStatus.stream().filter(CandidateEntity::isVerified).toList();
